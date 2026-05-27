@@ -1,1 +1,1 @@
-echo '{"buildCommand":"bun run build","outputDirectory":".output/public","installCommand":"bun install","framework":null}' > vercel.json
+echo '{"buildCommand":"bun run build","outputDirectory":"dist/client","installCommand":"bun install","framework":null}' > vercel.json
