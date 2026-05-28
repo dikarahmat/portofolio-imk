@@ -1,1 +1,4 @@
-'{"buildCommand":"bun run build","startCommand":"node dist/server/server.js","outputDirectory":"dist/client"}' 
+{ 
+  "buildCommand": "bun run build", 
+  "startCommand": "node dist/server/server.js" 
+} 
