@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tugas IMK - Sebelum UTS & UAS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0f4c81, #2563eb);
+      color: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
+      margin-bottom: 25px;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .top-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .info-box {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      border-left: 5px solid #2563eb;
+    }
+
+    .info-box h3 {
+      font-size: 15px;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      color: #0f4c81;
+      margin: 20px 0;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: #2563eb;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid #dbeafe;
+      transition: 0.3s;
+    }
+
+    .tab-btn.active,
+    .tab-btn:hover {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    .card {
+      display: none;
+      background: white;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card h2 {
+      color: #2563eb;
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+
+    .card h3 {
+      margin: 20px 0 10px;
+      color: #0f4c81;
+      font-size: 19px;
+    }
+
+    .card p {
+      margin-bottom: 10px;
+    }
+
+    .card ul,
+    .card ol {
+      margin-left: 20px;
+      margin-bottom: 14px;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .highlight {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #e0f2fe;
+      color: #075985;
+      border-radius: 999px;
+      font-weight: bold;
+      margin: 8px 8px 8px 0;
+      font-size: 14px;
+    }
+
+    .deadline {
+      margin-top: 15px;
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .actions {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      background: #2563eb;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    .footer {
+      text-align: center;
+      margin: 35px 0 20px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .tabs,
+      .actions {
+        display: none;
+      }
+
+      .card {
+        display: block !important;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+
+      .header {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Tugas Mata Kuliah Interaksi Manusia dengan Komputer</h1>
+      <p>Informasi tugas mahasiswa sebelum UTS dan sebelum UAS</p>
+    </div>
+
+    <div class="top-info">
+      <div class="info-box">
+        <h3>Mata Kuliah</h3>
+        <p>Interaksi Manusia dengan Komputer</p>
+      </div>
+      <div class="info-box">
+        <h3>Dosen Pengampu</h3>
+        <p>Syaeful Machfud, M.Kom.</p>
+      </div>
+      <div class="info-box">
+        <h3>Kelas</h3>
+        <p>Silakan sesuaikan dengan kelas masing-masing</p>
+      </div>
+      <div class="info-box">
+        <h3>Tahun Akademik</h3>
+        <p>2025/2026</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Detail Penugasan</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('uts', this)">Tugas Sebelum UTS</button>
+      <button class="tab-btn" onclick="showTab('uas', this)">Tugas Sebelum UAS</button>
+    </div>
+
+    <!-- UTS -->
+    <div id="uts" class="card active">
+      <h2>Tugas Projek Sebelum UTS</h2>
+      <span class="badge">Tugas Kelompok</span>
+      <span class="badge">1 Kelompok = 3 Mahasiswa</span>
+
+      <div class="highlight">
+        <p><strong>Judul Tugas:</strong> Perancangan Prototype Aplikasi/Website Berbasis IMK</p>
+        <p><strong>Tujuan:</strong> Mahasiswa mampu bekerja sama dalam tim untuk merancang prototype antarmuka yang mudah digunakan, menarik, dan sesuai kebutuhan pengguna.</p>
+      </div>
+
+      <h3>Deskripsi Tugas</h3>
+      <p>
+        Setiap kelompok yang terdiri dari <strong>3 mahasiswa</strong> diminta membuat rancangan prototype
+        aplikasi atau website sederhana dengan menerapkan prinsip dasar Interaksi Manusia dengan Komputer (IMK).
+        Projek harus berangkat dari masalah nyata yang ada di lingkungan kampus, sekolah, UMKM, atau masyarakat.
+      </p>
+
+      <h3>Contoh Tema Projek</h3>
+      <ul>
+        <li>Aplikasi peminjaman buku perpustakaan</li>
+        <li>Website informasi jadwal kuliah</li>
+        <li>Aplikasi layanan antrian</li>
+        <li>Sistem pemesanan kantin kampus</li>
+        <li>Website pendaftaran organisasi mahasiswa</li>
+      </ul>
+
+      <h3>Ketentuan Pengerjaan</h3>
+      <ol>
+        <li>Bentuk kelompok terdiri dari <strong>3 mahasiswa</strong>.</li>
+        <li>Pilih 1 topik atau masalah yang akan diselesaikan.</li>
+        <li>Jelaskan target pengguna dari sistem yang dibuat.</li>
+        <li>Buat analisis kebutuhan pengguna secara sederhana.</li>
+        <li>Buat alur penggunaan sistem <strong>(user flow)</strong>.</li>
+        <li>Buat <strong>wireframe/sketsa</strong> minimal 5 tampilan.</li>
+        <li>Buat <strong>prototype</strong> menggunakan Figma, Canva, PowerPoint, atau media lainnya.</li>
+        <li>Prototype minimal memuat:
+          <ul>
+            <li>Halaman utama</li>
+            <li>Menu utama</li>
+            <li>Form input</li>
+            <li>Pesan error/help</li>
+            <li>Halaman hasil/output</li>
+          </ul>
+        </li>
+        <li>Lakukan uji coba sederhana kepada minimal 3 pengguna.</li>
+        <li>Buat perbaikan berdasarkan masukan pengguna.</li>
+      </ol>
+
+      <h3>Pembagian Peran dalam Kelompok</h3>
+      <ul>
+        <li><strong>Mahasiswa 1:</strong> Analisis masalah dan kebutuhan pengguna</li>
+        <li><strong>Mahasiswa 2:</strong> Desain wireframe dan prototype</li>
+        <li><strong>Mahasiswa 3:</strong> Dokumentasi, evaluasi, dan presentasi</li>
+      </ul>
+
+      <h3>Output yang Dikumpulkan</h3>
+      <ul>
+        <li>Laporan kelompok 5–7 halaman</li>
+        <li>Daftar nama anggota kelompok</li>
+        <li>Analisis pengguna</li>
+        <li>User flow</li>
+        <li>Wireframe / sketsa</li>
+        <li>Link atau file prototype</li>
+        <li>Hasil evaluasi sederhana</li>
+        <li>Slide presentasi kelompok</li>
+      </ul>
+
+      <h3>Kriteria Penilaian</h3>
+      <ul>
+        <li>Kesesuaian tema dengan kebutuhan pengguna</li>
+        <li>Kejelasan analisis masalah</li>
+        <li>Kualitas desain antarmuka</li>
+        <li>Kejelasan alur penggunaan sistem</li>
+        <li>Penerapan konsep IMK</li>
+        <li>Kerja sama dan presentasi kelompok</li>
+      </ul>
+
+      <div class="deadline">Deadline: 1 Minggu sebelum Pelaksanaan UTS</div>
+
+      <div class="actions">
+        <button class="btn" onclick="window.print()">Cetak / Simpan PDF</button>
+      </div>
+    </div>
+
+    <!-- UAS -->
+    <div id="uas" class="card">
+      <h2>Tugas Sebelum UAS</h2>
+      <span class="badge">Tugas Individu</span>
+      <span class="badge">Portofolio Pribadi Berbasis IMK</span>
+
+      <div class="highlight">
+        <p><strong>Judul Tugas:</strong> Pembuatan Portofolio Diri dengan Pendekatan IMK</p>
+        <p><strong>Tujuan:</strong> Mahasiswa mampu merancang dan menampilkan portofolio pribadi yang menarik, mudah dipahami, dan nyaman digunakan sesuai prinsip IMK.</p>
+      </div>
+
+      <h3>Deskripsi Tugas</h3>
+      <p>
+        Setiap mahasiswa membuat <strong>portofolio pribadi secara individu</strong> yang berisi identitas diri,
+        profil singkat, kemampuan, pengalaman, projek, dan kontak. Portofolio dibuat dengan memperhatikan
+        prinsip Interaksi Manusia dengan Komputer, sehingga tampilannya jelas, rapi, mudah dipahami,
+        dan nyaman diakses oleh pengguna.
+      </p>
+
+      <h3>Isi Minimal Portofolio</h3>
+      <ul>
+        <li>Foto diri</li>
+        <li>Nama lengkap dan profil singkat</li>
+        <li>Deskripsi diri / tentang saya</li>
+        <li>Riwayat pendidikan</li>
+        <li>Keahlian atau skill</li>
+        <li>Pengalaman organisasi atau pengalaman kerja</li>
+        <li>Daftar projek atau karya</li>
+        <li>Kontak / media sosial</li>
+      </ul>
+
+      <h3>Ketentuan Pengerjaan</h3>
+      <ol>
+        <li>Tugas dikerjakan <strong>secara individu</strong>.</li>
+        <li>Portofolio dapat dibuat dalam bentuk:
+          <ul>
+            <li>Desain prototype interaktif PowerPoint</li>
+          </ul>
+        </li>
+        <li>Tampilan harus menerapkan prinsip IMK:
+          <ul>
+            <li>Navigasi jelas</li>
+            <li>Penjelasan Pemilihan Warna</li>
+            <li>Teks mudah dibaca</li>
+            <li>Informasi tersusun rapi</li>
+            <li>Mudah dipahami pengguna</li>
+          </ul>
+        </li>
+        <li>Portofolio minimal memiliki 6 bagian/halaman utama.</li>
+        <li>Mahasiswa wajib menjelaskan alasan desain yang digunakan.</li>
+      </ol>
+
+      <h3>Output yang Dikumpulkan</h3>
+      <ul>
+        <li>File portofolio</li>
+        <li>Laporan singkat 6 halaman</li>
+        <li>Penjelasan konsep desain IMK yang diterapkan</li>
+      </ul>
+      <h3>Kriteria Penilaian</h3>
+      <ul>
+        <li>Kelengkapan isi portofolio</li>
+        <li>Kerapihan dan estetika tampilan</li>
+        <li>Kemudahan penggunaan</li>
+        <li>Penerapan konsep IMK</li>
+        <li>Kreativitas desain</li>
+      </ul>
+
+      <div class="deadline">Deadline: 20 Juni 2026</div>
+
+      <div class="actions">
+        <button class="btn" onclick="window.print()">Cetak / Simpan PDF</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      © 2025/2026 - Tugas Interaksi Manusia dengan Komputer
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabId, el) {
+      const cards = document.querySelectorAll('.card');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      cards.forEach(card => card.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      el.classList.add('active');
+    }
+  </script>
+</body>
+</html>
