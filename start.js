@@ -1,0 +1,1 @@
+import{createServer}from'http';import{createServerAdapter}from'@whatwg-node/server';import{default as server}from'./dist/server/server.js';const adapter=createServerAdapter(server.fetch);const port=process.env.PORT||3000;createServer(adapter).listen(port,()=>console.log('Server running on port '+port));
