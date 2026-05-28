@@ -5,6 +5,7 @@ import {
   Code2, Palette, Layers, Rocket, GraduationCap, Briefcase,
 } from "lucide-react";
 import dikaPortrait from "@/assets/dika-portrait.png";
+import logo from "@/assets/logo-dk.png"; // ← ganti nama file sesuai logo kamu
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,12 +52,26 @@ const TECH_INFO: Record<string, { desc: string; use: string }> = {
 
 function Portfolio() {
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#" className="italic-display text-2xl">Dika Rahmat Fadillah</a>
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 md:py-4">
+
+            
+    {/* Logo */}
+    {/* -my-3 untuk mobile, md:-my-6 untuk desktop */}
+      <a href="#" className="-my-3 md:-my-6">
+        <img 
+          src={logo} 
+          alt="Logo" 
+          // h-9 untuk mobile, md:h-30 untuk desktop
+          className="h-9 w-auto md:h-12" 
+        />
+      </a>
+
+          {/* Nav desktop */}
           <nav className="hidden gap-8 md:flex">
             {NAV.map((n) => (
               <a key={n.href} href={n.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
@@ -64,10 +79,54 @@ function Portfolio() {
               </a>
             ))}
           </nav>
+
+          {/* CTA desktop */}
           <a href="#contact" className="hidden rounded-full bg-foreground px-5 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-105 md:inline-block">
             Hubungi
           </a>
+
+          {/* Hamburger mobile */}
+          <button
+            className="grid h-9 w-9 place-items-center rounded-full border border-border md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4H14M2 8H14M2 12H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="border-t border-border bg-background/95 backdrop-blur-md md:hidden">
+            <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
+              {NAV.map((n) => (
+                <a
+                  key={n.href}
+                  href={n.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-xl px-4 py-3 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                >
+                  {n.label}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 rounded-full bg-foreground px-5 py-3 text-center text-sm font-medium text-primary-foreground"
+              >
+                Hubungi
+              </a>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* HERO — ala referensi: foto di tengah, headline di belakang/atas, pill kiri & teks kanan */}
@@ -384,17 +443,16 @@ function Portfolio() {
               <a key={p.t} href={p.url} target="_blank" rel="noopener noreferrer" className="group cursor-pointer">
                 <div
                   className="aspect-[4/3] overflow-hidden rounded-3xl border border-border transition-transform group-hover:-translate-y-2"
-                  style={{ background: p.c, boxShadow: "var(--shadow-card)" }}
+                  style={{ boxShadow: "var(--shadow-card)" }}
                 >
                   <div className="relative h-full w-full">
                     <img
                       src={p.img}
                       alt={p.t}
-                      className="h-full w-full object-cover object-top opacity-80"
+                      className="h-full w-full object-cover object-top"
                       loading="lazy"
                       onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                     />
-                    <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, transparent 40%, ${p.c} 100%)` }} />
                     <div className="absolute top-3 right-3">
                       <ArrowUpRight className="h-6 w-6 text-white/70 transition-transform group-hover:rotate-45" />
                     </div>
