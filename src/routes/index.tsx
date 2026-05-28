@@ -6,6 +6,10 @@ import {
 } from "lucide-react";
 import dikaPortrait from "@/assets/dika-portrait.png";
 import logo from "@/assets/logo-dk.png";
+import kantinkuImg from "@/assets/projects/kantinku.png";
+import doitImg from "@/assets/projects/doit.png";
+import skiesImg from "@/assets/projects/skies.png";
+import memoryImg from "@/assets/projects/memory.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -408,28 +412,28 @@ function Portfolio() {
                 desc: "Aplikasi pemesanan makanan kantin berbasis web. Pesan makan, tanpa antre.",
                 tag: "React • Vite • Firebase",
                 url: "https://kantinku-chi.vercel.app/",
-                img: "/kantinku.png", // GANTI NAMA INI SESUAI FILE GAMBAR KAMU DI FOLDER PUBLIC
+                img: kantinkuImg,
               },
               {
                 t: "do.it",
                 desc: "Aplikasi todo list simpel dan bersih untuk mengelola tugas harian.",
                 tag: "React • Vite • Tailwind CSS",
                 url: "https://todo-app-dikarahmats-projects.vercel.app/",
-                img: "/doit.png", // GANTI NAMA INI SESUAI FILE GAMBAR KAMU DI FOLDER PUBLIC
+                img: doitImg,
               },
               {
                 t: "skies.",
                 desc: "Aplikasi cuaca modern untuk cek kondisi cuaca real-time kota mana saja.",
                 tag: "React • Vite • OpenWeather API",
                 url: "https://weather-app-hazel-delta-31.vercel.app/",
-                img: "/skies.png", // GANTI NAMA INI SESUAI FILE GAMBAR KAMU DI FOLDER PUBLIC
+                img: skiesImg,
               },
               {
                 t: "memory_",
                 desc: "Card matching memory game dengan 4 level kesulitan, timer, dan best score.",
                 tag: "React • Vite • CSS",
                 url: "https://memory-dk.vercel.app/",
-                img: "/memory.png", // GANTI NAMA INI SESUAI FILE GAMBAR KAMU DI FOLDER PUBLIC
+                img: memoryImg,
               },
             ].map((p) => (
               <a key={p.t} href={p.url} target="_blank" rel="noopener noreferrer" className="group cursor-pointer">
