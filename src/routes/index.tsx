@@ -96,27 +96,31 @@ function Portfolio() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+
       {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 md:py-4">
-          
+
           <a href="#" className="-my-3 md:-my-6">
-            <img 
-              src={logo} 
-              alt="Logo" 
-              className="h-9 w-auto md:h-12" 
-            />
+            <img src={logo} alt="Logo" className="h-9 w-auto md:h-12" />
           </a>
 
           <nav className="hidden gap-8 md:flex">
             {NAV.map((n) => (
-              <a key={n.href} href={n.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+              <a
+                key={n.href}
+                href={n.href}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
                 {n.label}
               </a>
             ))}
           </nav>
 
-          <a href="#contact" className="hidden rounded-full bg-foreground px-5 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-105 md:inline-block">
+          <a
+            href="#contact"
+            className="hidden rounded-full bg-foreground px-5 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-105 md:inline-block"
+          >
             Hubungi
           </a>
 
@@ -162,39 +166,40 @@ function Portfolio() {
         )}
       </header>
 
-      {/* HERO */}
+{/* HERO */}
       <section
-        className="relative overflow-hidden px-6 pt-12 pb-0"
+        className="relative overflow-hidden px-6 pt-8 md:pt-12"
         style={{ background: "var(--gradient-lime)" }}
       >
         <div className="mx-auto max-w-6xl">
-          <div className="mb-8 flex justify-center">
-            {/* Link Tugas mengarah ke file HTML lokal di public/ */}
+          
+          <div className="mb-6 flex justify-center md:mb-8">
             <a
               href="/tugas-imk.html"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-4 py-1.5 text-xs backdrop-blur transition-all duration-200 hover:bg-background hover:border-foreground/30 hover:scale-105 cursor-pointer"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-foreground/10 bg-background/70 px-4 py-1.5 text-xs backdrop-blur transition-all duration-200 hover:scale-105 hover:border-foreground/30 hover:bg-background"
             >
               <Sparkles className="h-3.5 w-3.5" />
               Tugas Portofolio — Interaksi Manusia &amp; Komputer
             </a>
           </div>
 
-          <h1 className="text-center font-display text-5xl leading-[1.02] tracking-tight md:text-7xl lg:text-8xl">
+          <h1 className="relative z-0 text-center font-display text-4xl leading-[1.05] tracking-tight md:text-7xl lg:text-8xl">
             Hi I'm Dika
             <br />
             <span className="italic-display">Mahasiswa Informatika</span>
           </h1>
 
-          <div className="relative mt-[-30px] md:mt-[-60px]">
+      {/* FIX: Margin minus dikurangi agar foto sedikit turun ke bawah di desktop */}
+          <div className="relative z-10 mt-[-40px] md:mt-[-50px] lg:mt-[-60px]">
             <div className="relative mx-auto flex justify-center">
               <img
                 src={dikaPortrait}
                 alt="Foto Dika Rahmat Fadillah"
                 width={1024}
                 height={1024}
-                className="relative z-10 h-auto w-[320px] object-contain md:w-[460px] lg:w-[520px]"
+                className="relative z-10 h-auto w-[280px] object-contain md:w-[400px] lg:w-[460px]"
                 style={{ filter: "drop-shadow(0 30px 40px oklch(0.18 0.01 240 / 0.18))" }}
               />
             </div>
@@ -212,7 +217,7 @@ function Portfolio() {
               passionate dalam menciptakan pengalaman digital yang intuitif dengan prinsip IMK.
             </div>
 
-            <div className="absolute bottom-12 right-8 z-20 hidden md:block">
+            <div className="absolute bottom-12 right-8 z-20 hidden w-[220px] md:block">
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-primary-foreground shadow-xl transition-transform hover:scale-105"
@@ -238,7 +243,7 @@ function Portfolio() {
       </section>
 
       {/* MARQUEE */}
-      <div className="w-full overflow-hidden border-y border-border bg-background py-4">
+       <div className="w-full overflow-hidden border-y border-border bg-background py-2">
         <div
           className="flex w-max items-center gap-x-12"
           style={{ animation: "marquee 20s linear infinite" }}
@@ -266,7 +271,9 @@ function Portfolio() {
           </div>
           <p className="text-lg leading-relaxed text-muted-foreground">
             Saya seorang mahasiswa yang antusias dalam dunia desain dan teknologi.
-            Berfokus pada perpaduan antara <span className="text-foreground">strategi yang jelas, desain yang rapi, dan empati terhadap pengguna</span> untuk menciptakan pengalaman digital yang benar-benar bermakna.
+            Berfokus pada perpaduan antara{" "}
+            <span className="text-foreground">strategi yang jelas, desain yang rapi, dan empati terhadap pengguna</span>{" "}
+            untuk menciptakan pengalaman digital yang benar-benar bermakna.
           </p>
         </div>
 
@@ -309,11 +316,13 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* SKILLS */}
-      <section id="skills" className="relative overflow-hidden bg-background px-6 pt-8 pb-28">
+     {/* SKILLS */}
+      {/* UPDATE: pt-8 dan pb-10 diperkecil menjadi pt-2 dan pb-6 untuk mobile */}
+      <section id="skills" className="relative overflow-hidden bg-background px-6 pt-2 pb-6 md:pt-8 md:pb-28">
         {(() => {
           const pillClass = "inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pr-5 pl-1.5 text-sm font-medium transition-all duration-300 cursor-pointer";
           const makePill = (t: { n: string; s: string; c: string; bg: string; hoverBg: string; hoverText: string }, extraStyle?: React.CSSProperties) => (
+            // ... (kode makePill tidak berubah) ... => (
             <div
               key={t.n}
               className={pillClass}
@@ -338,38 +347,42 @@ function Portfolio() {
               {t.n}
             </div>
           );
+
           const left = [
-            { n: "HTML", s: "html5", c: "FFFFFF", bg: "#E34F26", hoverBg: "#E34F26", hoverText: "#FFFFFF" },
+            { n: "HTML",       s: "html5",      c: "FFFFFF", bg: "#E34F26", hoverBg: "#E34F26", hoverText: "#FFFFFF" },
             { n: "JavaScript", s: "javascript", c: "000000", bg: "#F7DF1E", hoverBg: "#F7DF1E", hoverText: "#000000" },
-            { n: "Node JS", s: "nodedotjs", c: "FFFFFF", bg: "#339933", hoverBg: "#339933", hoverText: "#FFFFFF" },
+            { n: "Node JS",    s: "nodedotjs",  c: "FFFFFF", bg: "#339933", hoverBg: "#339933", hoverText: "#FFFFFF" },
           ];
           const right = [
             { n: "Tailwind CSS", s: "tailwindcss", c: "FFFFFF", bg: "#06B6D4", hoverBg: "#06B6D4", hoverText: "#FFFFFF" },
-            { n: "ReactJS", s: "react", c: "000000", bg: "#61DAFB", hoverBg: "#61DAFB", hoverText: "#000000" },
-            { n: "Vite", s: "vite", c: "FFFFFF", bg: "#646CFF", hoverBg: "#646CFF", hoverText: "#FFFFFF" },
+            { n: "ReactJS",      s: "react",        c: "000000", bg: "#61DAFB", hoverBg: "#61DAFB", hoverText: "#000000" },
+            { n: "Vite",         s: "vite",         c: "FFFFFF", bg: "#646CFF", hoverBg: "#646CFF", hoverText: "#FFFFFF" },
           ];
+
           return (
             <>
-              <div className="md:hidden">
-                <div className="mb-6 flex flex-wrap justify-center gap-3">
-                  {left.map(t => makePill(t))}
-                  {right.map(t => makePill(t))}
-                </div>
-                <div className="text-center px-2 mb-6">
-                  <h2 className="font-display text-3xl leading-[1.15] tracking-tight">
-                    fokus saya pada perpaduan <span className="italic-display">strategi yang jelas</span>, desain yang rapi, dan empati pengguna untuk{" "}
-                    <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
-                  </h2>
-                </div>
-              </div>
+             {/* Mobile layout - blockquote only */}
+<div className="md:hidden px-2 py-4 text-center">
+  <h2 className="font-display text-2xl leading-[1.2] tracking-tight">
+    fokus saya pada perpaduan{" "}
+    <span className="italic-display">strategi yang jelas</span>,
+    desain yang rapi, dan empati pengguna untuk{" "}
+    <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
+  </h2>
+</div>
 
+              {/* Desktop layout */}
+            
+              {/* Desktop layout */}
               <div className="hidden md:grid mx-auto max-w-6xl items-center gap-10 md:grid-cols-[auto_1fr_auto]">
                 <div className="flex flex-col gap-10">
                   {left.map((t, i) => makePill(t, { transform: i === 1 ? "translateX(28px)" : i === 2 ? "translateX(10px)" : "translateX(-10px)" }))}
                 </div>
                 <div className="text-center">
                   <h2 className="font-display text-5xl leading-[1.15] tracking-tight">
-                    fokus saya pada perpaduan <span className="italic-display">strategi yang jelas</span>, desain yang rapi, dan empati pengguna untuk{" "}
+                    fokus saya pada perpaduan{" "}
+                    <span className="italic-display">strategi yang jelas</span>,
+                    desain yang rapi, dan empati pengguna untuk{" "}
                     <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
                   </h2>
                 </div>
@@ -381,13 +394,13 @@ function Portfolio() {
           );
         })()}
 
-        <div className="mx-auto mt-16 flex max-w-5xl flex-wrap justify-center gap-3">
+       <div className="mx-auto mt-16 hidden max-w-5xl flex-wrap justify-center gap-3 md:flex">
           {[
-            { n: "CSS", s: "css3", c: "FFFFFF", bg: "#1572B6", hoverBg: "#1572B6", hoverText: "#FFFFFF" },
-            { n: "Bootstrap", s: "bootstrap", c: "FFFFFF", bg: "#7952B3", hoverBg: "#7952B3", hoverText: "#FFFFFF" },
-            { n: "Firebase", s: "firebase", c: "000000", bg: "#FFCA28", hoverBg: "#FFCA28", hoverText: "#000000" },
-            { n: "Material UI", s: "mui", c: "FFFFFF", bg: "#007FFF", hoverBg: "#007FFF", hoverText: "#FFFFFF" },
-            { n: "Vercel", s: "vercel", c: "FFFFFF", bg: "#000000", hoverBg: "#000000", hoverText: "#FFFFFF" },
+            { n: "CSS",         s: "css3",        c: "FFFFFF", bg: "#1572B6", hoverBg: "#1572B6", hoverText: "#FFFFFF" },
+            { n: "Bootstrap",   s: "bootstrap",   c: "FFFFFF", bg: "#7952B3", hoverBg: "#7952B3", hoverText: "#FFFFFF" },
+            { n: "Firebase",    s: "firebase",    c: "000000", bg: "#FFCA28", hoverBg: "#FFCA28", hoverText: "#000000" },
+            { n: "Material UI", s: "mui",         c: "FFFFFF", bg: "#007FFF", hoverBg: "#007FFF", hoverText: "#FFFFFF" },
+            { n: "Vercel",      s: "vercel",      c: "FFFFFF", bg: "#000000", hoverBg: "#000000", hoverText: "#FFFFFF" },
             { n: "SweetAlert2", s: "sweetalert2", c: "FFFFFF", bg: "#FF7043", hoverBg: "#FF7043", hoverText: "#FFFFFF" },
           ].map((t) => (
             <div
@@ -417,42 +430,44 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* EDUCATION */}
-      <section className="bg-secondary px-6 py-24">
+      {/* EDUCATION — FIX: py-12 mobile (was py-24) */}
+      <section className="bg-secondary px-6 py-12 md:py-24">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-12 flex items-end justify-between">
-            <div>
-              <h2 className="font-display text-4xl md:text-5xl">
-                Riwayat <span className="italic-display">Pendidikan</span>
-              </h2>
-            </div>
+          <div className="mb-8 md:mb-12 flex items-end justify-between">
+            <h2 className="font-display text-4xl md:text-5xl">
+              Riwayat <span className="italic-display">Pendidikan</span>
+            </h2>
             <GraduationCap className="hidden h-10 w-10 text-muted-foreground md:block" />
           </div>
 
-          <div className="space-y-px overflow-hidden rounded-3xl border border-border bg-card">
-            {[
-              { y: "2024 — Sekarang", s: "S1 Teknik Informatika", i: "Universitas Pamulang" },
-              { y: "2021 — 2024", s: "SMA — Jurusan IPA", i: "SMA Negeri 1 Sendang Agung" },
-              { y: "2018 — 2021", s: "SMP", i: "SMP Negeri 2 Sendang Agung" },
-            ].map((e) => (
-              <div key={e.s} className="grid grid-cols-1 gap-2 border-b border-border p-6 last:border-0 md:grid-cols-3">
-                <span className="text-sm text-muted-foreground">{e.y}</span>
-                <span className="italic-display text-xl md:col-span-1">{e.s}</span>
-                <span className="text-sm text-muted-foreground md:text-right">{e.i}</span>
-              </div>
-            ))}
-          </div>
+          <div className="space-y-3 md:space-y-4">
+  {[
+    { y: "2024 — Sekarang", s: "S1 Teknik Informatika", i: "Universitas Pamulang",       color: "#84cc16" },
+    { y: "2021 — 2024",     s: "SMA — Jurusan IPA",     i: "SMA Negeri 1 Sendang Agung", color: "#0EA5E9" },
+    { y: "2018 — 2021",     s: "SMP",                   i: "SMP Negeri 2 Sendang Agung", color: "#F59E0B" },
+  ].map((e) => (
+    <div
+      key={e.s}
+      className="flex flex-col gap-1 rounded-2xl border border-border bg-card px-5 py-4 md:p-6"
+      style={{ borderLeft: `4px solid ${e.color}`, boxShadow: "var(--shadow-card)" }}
+    >
+      <span className="text-xs text-muted-foreground">{e.y}</span>
+      <span className="italic-display text-lg md:text-xl">{e.s}</span>
+      <span className="text-sm text-muted-foreground">{e.i}</span>
+    </div>
+  ))}
+</div>
         </div>
       </section>
 
-      {/* PROJECTS */}
-      <section id="projects" className="px-6 py-24">
+   {/* PROJECTS */}
+      <section id="projects" className="px-6 py-12 md:py-24">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center font-display text-4xl md:text-5xl">
             My <span className="italic-display">Project</span>
           </h2>
 
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
+          <div className="mt-8 grid gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
             {[
               {
                 t: "KantinKu",
@@ -485,7 +500,7 @@ function Portfolio() {
             ].map((p) => (
               <a key={p.t} href={p.url} target="_blank" rel="noopener noreferrer" className="group cursor-pointer">
                 <div
-                  className="aspect-[4/3] overflow-hidden rounded-3xl border border-border transition-transform group-hover:-translate-y-2 bg-secondary"
+                  className="aspect-[2/1] md:aspect-video overflow-hidden rounded-2xl border border-border bg-secondary transition-transform group-hover:-translate-y-2 md:rounded-3xl"
                   style={{ boxShadow: "var(--shadow-card)" }}
                 >
                   <div className="relative h-full w-full">
@@ -497,14 +512,16 @@ function Portfolio() {
                       onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                     />
                     <div className="absolute top-3 right-3">
-                      <ArrowUpRight className="h-6 w-6 text-white/70 transition-transform group-hover:rotate-45" />
+                      <ArrowUpRight className="h-5 w-5 text-white/70 transition-transform group-hover:rotate-45 md:h-6 md:w-6" />
                     </div>
                   </div>
                 </div>
-                <div className="mt-4">
+                
+                {/* TEKS YANG HILANG SUDAH KEMBALI DI SINI 👇 */}
+                <div className="mt-3 md:mt-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-medium">{p.t}</h3>
-                    <span className="text-xs text-muted-foreground">{p.tag}</span>
+                    <h3 className="text-base font-medium md:text-lg">{p.t}</h3>
+                    <span className="hidden text-xs text-muted-foreground md:inline">{p.tag}</span>
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{p.desc}</p>
                 </div>
@@ -513,62 +530,91 @@ function Portfolio() {
           </div>
         </div>
       </section>
-
-      {/* EXPERIENCE */}
-      <section id="experience" className="bg-secondary px-6 py-24">
+{/* EXPERIENCE */}
+      <section id="experience" className="bg-secondary px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-12 flex items-end justify-between">
-            <div>
-              <h2 className="font-display text-4xl md:text-5xl">
-                Organisasi & <span className="italic-display">Kegiatan</span>
-              </h2>
-            </div>
+          <div className="mb-8 md:mb-12 flex items-end justify-between">
+            <h2 className="font-display text-4xl md:text-5xl">
+              Organisasi &amp; <span className="italic-display">Kegiatan</span>
+            </h2>
             <Briefcase className="hidden h-10 w-10 text-muted-foreground md:block" />
           </div>
-
-          <div className="space-y-4">
+          
+         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {[
-              { r: "OSIS", c: "Ketua OSIS", y: "2022 — 2023" },
-              { r: "Pramuka", c: "Pradana Putra", y: "2021 — 2023" },
+              { 
+                r: "Organisasi Siswa Intra Sekolah", 
+                c: "Ketua OSIS", 
+                s: "SMA Negeri 1 Sendang Agung", 
+                y: "2022 — 2023", 
+                color: "#7C3AED" 
+              },
+              { 
+                r: "Pramuka", 
+                c: "Pradana Putra", 
+                s: "SMA Negeri 1 Sendang Agung", 
+                y: "2021 — 2023", 
+                color: "#F59E0B" 
+              },
             ].map((e) => (
-              <div key={e.r} className="grid grid-cols-1 items-center gap-2 rounded-2xl border border-border bg-card p-6 md:grid-cols-[2fr_2fr_1fr]">
-                <span className="italic-display text-xl">{e.r}</span>
-                <span className="text-muted-foreground">{e.c}</span>
-                <span className="text-sm text-muted-foreground md:text-right">{e.y}</span>
+              <div
+                key={e.r}
+                className="flex flex-col rounded-2xl border border-border bg-card px-5 py-5 md:p-6"
+                style={{ borderLeft: `4px solid ${e.color}`, boxShadow: "var(--shadow-card)" }}
+              >
+                {/* Tahun tetap di atas kiri */}
+                <span className="mb-2 text-xs text-muted-foreground">{e.y}</span>
+                
+                {/* Pembungkus Kiri & Kanan */}
+                <div className="flex justify-between items-start gap-2">
+                  
+                  {/* Bagian Kiri: Nama Organisasi (Lebar 55%) */}
+                  <span className="italic-display text-xl leading-tight md:text-2xl w-[55%]">
+                    {e.r}
+                  </span>
+                  
+                  {/* Bagian Kanan: Jabatan & Sekolah (Lebar 45%, Rata Kanan) */}
+                  <div className="flex flex-col text-right w-[45%]">
+                    <span className="text-sm font-medium text-foreground">{e.c}</span>
+                    <span className="mt-1 text-xs leading-tight text-muted-foreground">{e.s}</span>
+                  </div>
+                  
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* CONTACT / CTA */}
+      {/* CONTACT — FIX: py-16 mobile (was py-28), h2 text-4xl mobile, teks lebih singkat, social icon lebih besar */}
       <section
         id="contact"
-        className="relative overflow-hidden px-6 py-28 text-center"
+        className="relative overflow-hidden px-6 py-16 text-center md:py-28"
         style={{ background: "var(--gradient-lime)" }}
       >
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display text-5xl leading-tight md:text-7xl">
+          {/* FIX: text-4xl mobile (was text-5xl) */}
+          <h2 className="font-display text-4xl leading-tight md:text-7xl">
             Mari <span className="italic-display">Berkolaborasi</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
-            Saya selalu terbuka untuk diskusi, kolaborasi proyek kampus,
-            ataupun sekadar bertukar ide kreatif seputar desain dan teknologi.
+          {/* FIX: teks lebih singkat di mobile */}
+          <p className="mx-auto mt-4 max-w-xs text-sm text-muted-foreground md:mt-6 md:max-w-xl md:text-base">
+            Terbuka untuk kolaborasi proyek dan diskusi seputar desain &amp; teknologi.
           </p>
           <a
             href="https://wa.me/6281538781271"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105"
+            className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105 md:mt-8"
             style={{ backgroundColor: "#25D366" }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
             </svg>
             <span>WhatsApp</span>
           </a>
 
-          <div className="mt-10 flex justify-center gap-4">
+          {/* FIX: social icon h-12 w-12 (was h-11 w-11) untuk tap target lebih besar */}
+          <div className="mt-8 flex justify-center gap-3 md:mt-10 md:gap-4">
             {SOCIAL_LINKS.map(({ icon: Icon, href, label, hoverBg, hoverColor }) => (
               <a
                 key={label}
@@ -576,7 +622,7 @@ function Portfolio() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="grid h-11 w-11 place-items-center rounded-full border border-foreground/15 bg-background/70 backdrop-blur transition-all duration-200 hover:scale-110 hover:border-transparent"
+                className="grid h-12 w-12 place-items-center rounded-full border border-foreground/15 bg-background/70 backdrop-blur transition-all duration-200 hover:scale-110 hover:border-transparent"
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLElement;
                   el.style.background = hoverBg;
@@ -594,7 +640,7 @@ function Portfolio() {
             <a
               href="mailto:dikarahmat998@gmail.com"
               aria-label="Email"
-              className="grid h-11 w-11 place-items-center rounded-full border border-foreground/15 bg-background/70 backdrop-blur transition-all duration-200 hover:scale-110 hover:border-transparent"
+              className="grid h-12 w-12 place-items-center rounded-full border border-foreground/15 bg-background/70 backdrop-blur transition-all duration-200 hover:scale-110 hover:border-transparent"
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.background = "#EA4335";
@@ -612,26 +658,28 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-border bg-background px-6 py-10">
-        <div className="mx-auto flex max-w-6xl flex-row items-center justify-between gap-x-4 text-sm text-muted-foreground">
-          <p className="shrink-0">© 2026 Dika Rahmat Fadillah</p>
-          <div className="flex flex-wrap justify-end gap-x-4 gap-y-1">
-            {NAV.map((n) => (
-              <a key={n.href} href={n.href} className="hover:text-foreground">{n.label}</a>
-            ))}
-          </div>
-        </div>
-        <p className="italic-display mt-8 text-center text-4xl text-foreground/90 sm:text-6xl md:text-9xl">
-          Dika Rahmat Fadillah
-        </p>
-      </footer>
+    <footer className="border-t border-border bg-background px-6 py-8 md:py-10">
+  <div className="mx-auto max-w-6xl">
+    <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground md:flex-row md:justify-between">
+      <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
+        {NAV.map((n) => (
+          <a key={n.href} href={n.href} className="hover:text-foreground">
+            {n.label}
+          </a>
+        ))}
+      </div>
+      <p>© 2026 Dika Rahmat Fadillah</p>
+    </div>
+  </div>
+  <p className="italic-display mt-8 hidden text-center text-foreground/90 sm:block sm:text-6xl md:text-9xl">
+    Dika Rahmat Fadillah
+  </p>
+</footer>
 
-      {/* ABOUT MODAL (MUNCUL SEBAGAI POP UP) */}
+      {/* ABOUT MODAL */}
       {activeAbout && (() => {
         const info = ABOUT_CARDS.find(c => c.t === activeAbout);
         if (!info) return null;
-        
         return (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -655,10 +703,10 @@ function Portfolio() {
                   className="grid h-12 w-12 place-items-center rounded-2xl"
                   style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
                 >
-                  {info.t === "UI Design" && <Palette className="h-7 w-7" />}
-                  {info.t === "Front-end" && <Code2 className="h-7 w-7" />}
-                  {info.t === "Prototyping" && <Layers className="h-7 w-7" />}
-                  {info.t === "Research" && <Rocket className="h-7 w-7" />}
+                  {info.t === "UI Design"    && <Palette className="h-7 w-7" />}
+                  {info.t === "Front-end"    && <Code2   className="h-7 w-7" />}
+                  {info.t === "Prototyping"  && <Layers  className="h-7 w-7" />}
+                  {info.t === "Research"     && <Rocket  className="h-7 w-7" />}
                 </div>
                 <h3 className="font-display text-2xl" style={{ color: "#fff" }}>{info.t}</h3>
               </div>
@@ -712,18 +760,25 @@ function Portfolio() {
                 </div>
                 <h3 className="font-display text-2xl" style={{ color: txtColor }}>{activeSkill}</h3>
               </div>
-              <p className="mb-4 text-sm leading-relaxed" style={{ color: txtColor, opacity: 0.92 }}>{info?.desc}</p>
+              <p className="mb-4 text-sm leading-relaxed" style={{ color: txtColor, opacity: 0.92 }}>
+                {info?.desc}
+              </p>
               <div
                 className="rounded-2xl p-3"
                 style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
               >
-                <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: txtColor, opacity: 0.7 }}>Kegunaan</p>
-                <p className="text-sm leading-relaxed" style={{ color: txtColor }}>{info?.use}</p>
+                <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: txtColor, opacity: 0.7 }}>
+                  Kegunaan
+                </p>
+                <p className="text-sm leading-relaxed" style={{ color: txtColor }}>
+                  {info?.use}
+                </p>
               </div>
             </div>
           </div>
         );
       })()}
+
     </div>
   );
 }
