@@ -242,8 +242,9 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* MARQUEE */}
-       <div className="w-full overflow-hidden border-y border-border bg-background py-2">
+  {/* MARQUEE */}
+      {/* FIX: py-2 diubah jadi py-3 md:py-4 agar kotaknya sedikit lebih tebal */}
+      <div className="w-full overflow-hidden border-y border-border bg-background py-3 md:py-4">
         <div
           className="flex w-max items-center gap-x-12"
           style={{ animation: "marquee 20s linear infinite" }}
@@ -254,7 +255,7 @@ function Portfolio() {
             "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Vite", "Node.js",
             "Bootstrap", "Firebase", "Material UI", "Vercel", "SweetAlert2",
           ].map((t, i) => (
-            <span key={i} className="italic-display whitespace-nowrap text-lg text-muted-foreground">
+            <span key={i} className="italic-display whitespace-nowrap text-lg md:text-xl text-muted-foreground">
               {t}
             </span>
           ))}
