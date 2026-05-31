@@ -128,7 +128,6 @@ function Portfolio() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
-            {/* Dark mode toggle — desktop */}
             <button
               onClick={() => setDark(!dark)}
               className="grid h-9 w-9 place-items-center rounded-full border border-border transition-all duration-200 hover:scale-105 hover:bg-secondary"
@@ -148,7 +147,6 @@ function Portfolio() {
             </a>
           </div>
 
-          {/* Mobile: dark toggle + hamburger */}
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={() => setDark(!dark)}
@@ -206,7 +204,7 @@ function Portfolio() {
 
       {/* HERO */}
       <section
-        className="relative overflow-hidden px-6 pt-8 pb-4 md:pt-12 md:pb-0"
+        className="relative overflow-hidden px-6 pt-8 pb-0 md:pt-12 md:pb-0"
         style={{ background: "var(--gradient-lime)" }}
       >
         <div className="mx-auto max-w-6xl">
@@ -229,16 +227,16 @@ function Portfolio() {
             <span className="italic-display">Mahasiswa Informatika</span>
           </h1>
 
-          <div className="relative z-10 mt-[-20px] md:mt-[-50px] lg:mt-[-60px]">
+          <div className="relative z-10 mt-[-40px] md:mt-[-50px] lg:mt-[-60px]">
             <div className="relative mx-auto flex justify-center">
-              <img
-                src={dikaPortrait}
-                alt="Foto Dika Rahmat Fadillah"
-                width={1024}
-                height={1024}
-                className="relative z-10 h-auto w-[260px] object-contain md:w-[400px] lg:w-[460px]"
-                style={{ filter: "drop-shadow(0 30px 40px oklch(0.18 0.01 240 / 0.18))" }}
-              />
+             <img
+  src={dikaPortrait}
+  alt="Foto Dika Rahmat Fadillah"
+  width={1024}
+  height={1024}
+  className="relative z-10 h-auto w-[340px] object-contain md:w-[400px] lg:w-[460px]"
+  style={{ filter: "drop-shadow(0 30px 40px oklch(0.18 0.01 240 / 0.18))" }}
+/>
             </div>
 
             <div className="absolute left-8 top-[40%] z-20 hidden md:block">
@@ -266,16 +264,15 @@ function Portfolio() {
             <div className="absolute bottom-12 left-8 z-20 hidden max-w-[200px] text-xs text-foreground/70 md:block">
               Mahasiswa <strong className="text-foreground">Teknik Informatika</strong> yang fokus pada front-end dan desain UI berlandaskan IMK.
             </div>
-
-            {/* Mobile CTA — inside hero flow, not absolute */}
-            <div className="flex justify-center pb-4 md:hidden">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-primary-foreground shadow-xl transition-transform hover:scale-105"
-              >
-                <ArrowUpRight className="h-4 w-4" /> Hubungi Saya
-              </a>
-            </div>
+{/* Mobile CTA */}
+<div className="relative z-30 flex justify-center mt-[-80px] pb-6 md:hidden">
+  <a
+    href="#contact"
+    className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-primary-foreground shadow-xl transition-transform hover:scale-105"
+  >
+    <ArrowUpRight className="h-4 w-4" /> Hubungi Saya
+  </a>
+</div>
           </div>
         </div>
       </section>
