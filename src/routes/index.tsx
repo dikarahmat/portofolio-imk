@@ -268,7 +268,8 @@ function Portfolio() {
             <div className="absolute bottom-12 left-8 z-20 hidden max-w-[200px] text-xs text-foreground/70 md:block">
               Mahasiswa <strong className="text-foreground">Teknik Informatika</strong> yang fokus pada front-end dan desain UI berlandaskan IMK.
             </div>
-{/* Mobile CTA */}
+
+   {/* Mobile CTA */}
 <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center md:hidden">
   <a
     href="/cv-dika.pdf"
