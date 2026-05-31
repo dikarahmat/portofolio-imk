@@ -102,7 +102,7 @@ function Portfolio() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 md:py-4">
 
           <a href="#" className="-my-3 md:-my-6">
-            <img src={logo} alt="Logo" className="h-9 w-auto md:h-12" />
+            <img src={logo} alt="Logo" className="h-13 w-auto md:h-17" />
           </a>
 
           <nav className="hidden gap-8 md:flex">
