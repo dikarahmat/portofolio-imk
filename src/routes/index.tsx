@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {
   Mail, Github, Linkedin, Instagram, ArrowUpRight, Sparkles,
   Code2, Palette, Layers, Rocket, GraduationCap, Briefcase,
-  Sun, Moon,
+  Sun, Moon, Download // <--- Tambahkan Download di sini
 } from "lucide-react";
 
 // Asset Imports
@@ -59,7 +59,7 @@ const TECH_INFO: Record<string, { desc: string; use: string; color: string; text
 };
 
 const ABOUT_CARDS = [
-  { t: "UI Design",    color: "#7C3AED", lightColor: "#EDE9FE", desc: "Merancang tampilan visual yang intuitif, estetis, dan berpusat pada pengguna — dari warna, tipografi, hingga layout yang konsisten." },
+  { t: "UI Design",   color: "#7C3AED", lightColor: "#EDE9FE", desc: "Merancang tampilan visual yang intuitif, estetis, dan berpusat pada pengguna — dari warna, tipografi, hingga layout yang konsisten." },
   { t: "Front-end",   color: "#0EA5E9", lightColor: "#E0F2FE", desc: "Membangun antarmuka web yang responsif dan interaktif menggunakan React, Tailwind CSS, dan teknologi modern lainnya." },
   { t: "Prototyping", color: "#F59E0B", lightColor: "#FEF3C7", desc: "Membuat prototipe interaktif di Figma untuk menguji alur dan pengalaman pengguna sebelum masuk ke tahap development." },
   { t: "Research",    color: "#10B981", lightColor: "#D1FAE5", desc: "Melakukan riset pengguna, analisis kebutuhan, dan usability testing agar produk benar-benar sesuai kebutuhan." },
@@ -204,8 +204,12 @@ function Portfolio() {
 
       {/* HERO */}
       <section
-        className="relative overflow-hidden px-6 pt-8 pb-0 md:pt-12 md:pb-0"
-        style={{ background: "var(--gradient-lime)" }}
+        className="relative overflow-hidden px-6 pt-8 pb-0 md:pt-12 md:pb-0 transition-all duration-500"
+        style={{
+          background: dark 
+            ? "radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25) 0%, transparent 70%)" 
+            : "var(--gradient-lime)"
+        }}
       >
         <div className="mx-auto max-w-6xl">
 
@@ -229,14 +233,14 @@ function Portfolio() {
 
           <div className="relative z-10 mt-[-40px] md:mt-[-50px] lg:mt-[-60px]">
             <div className="relative mx-auto flex justify-center">
-             <img
-  src={dikaPortrait}
-  alt="Foto Dika Rahmat Fadillah"
-  width={1024}
-  height={1024}
-  className="relative z-10 h-auto w-[340px] object-contain md:w-[400px] lg:w-[460px]"
-  style={{ filter: "drop-shadow(0 30px 40px oklch(0.18 0.01 240 / 0.18))" }}
-/>
+              <img
+                src={dikaPortrait}
+                alt="Foto Dika Rahmat Fadillah"
+                width={1024}
+                height={1024}
+                className="relative z-10 h-auto w-[370px] object-contain md:w-[400px] lg:w-[460px]"
+                style={{ filter: "drop-shadow(0 30px 40px oklch(0.18 0.01 240 / 0.18))" }}
+              />
             </div>
 
             <div className="absolute left-8 top-[40%] z-20 hidden md:block">
@@ -265,12 +269,14 @@ function Portfolio() {
               Mahasiswa <strong className="text-foreground">Teknik Informatika</strong> yang fokus pada front-end dan desain UI berlandaskan IMK.
             </div>
 {/* Mobile CTA */}
-<div className="relative z-30 flex justify-center mt-[-80px] pb-6 md:hidden">
+<div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center md:hidden">
   <a
-    href="#contact"
+    href="/cv-dika.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
     className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-primary-foreground shadow-xl transition-transform hover:scale-105"
   >
-    <ArrowUpRight className="h-4 w-4" /> Hubungi Saya
+    <Download className="h-4 w-4" /> Download CV
   </a>
 </div>
           </div>
@@ -611,8 +617,12 @@ function Portfolio() {
       {/* CONTACT */}
       <section
         id="contact"
-        className="relative overflow-hidden px-6 py-14 text-center md:py-28"
-        style={{ background: "var(--gradient-lime)" }}
+        className="relative overflow-hidden px-6 py-14 text-center md:py-28 transition-all duration-500"
+        style={{
+          background: dark 
+            ? "radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25) 0%, transparent 70%)" 
+            : "var(--gradient-lime)"
+        }}
       >
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-4xl leading-tight md:text-7xl">
