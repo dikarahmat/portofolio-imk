@@ -20,14 +20,17 @@ export const Route = createFileRoute("/")({
       { title: "Portofolio | Dika Rahmat Fadillah" },
       { name: "description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
       
-      // KODE OPEN GRAPH BUAT WHATSAPP
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://portofolio-imk-production.up.railway.app/" },
       { property: "og:title", content: "Portofolio | Dika Rahmat Fadillah" },
       { property: "og:description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
       { property: "og:image", content: "https://portofolio-imk-production.up.railway.app/preview.jpg" },
+      
+      // ---> PASTE DI SINI BRO <---
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+// ... (kode di bawahnya biarin aja, gak usah diubah)
       { rel: "icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
