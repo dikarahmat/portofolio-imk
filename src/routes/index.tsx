@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import {
   Mail, Github, Linkedin, Instagram, ArrowUpRight, Sparkles,
   Code2, Palette, Layers, Rocket, GraduationCap, Briefcase,
-  Sun, Moon, Download, ArrowUp // <--- Tambahkan ArrowUp
+  Sun, Moon, Download, ArrowUp,
 } from "lucide-react";
 
 // Asset Imports
@@ -13,24 +13,20 @@ import kantinkuImg from "@/assets/projects/kantinku.png";
 import doitImg from "@/assets/projects/doit.png";
 import skiesImg from "@/assets/projects/skies.png";
 import memoryImg from "@/assets/projects/memory.png";
+import clickSound from "@/assets/suara-unik.mp3";
 
+// ─────────────────────────────────────────────
+// Route
+// ─────────────────────────────────────────────
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Portofolio | Dika Rahmat Fadillah" },
-      { name: "description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
-      
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://portofolio-imk-production.up.railway.app/" },
-      { property: "og:title", content: "Portofolio | Dika Rahmat Fadillah" },
-      { property: "og:description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
-      { property: "og:image", content: "https://portofolio-imk-production.up.railway.app/preview.jpg" },
-      
-      // ---> PASTE DI SINI BRO <---
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: "Portofolio — Mahasiswa IMK" },
+      { name: "description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer (IMK)." },
+      { property: "og:title", content: "Portofolio — Mahasiswa IMK" },
+      { property: "og:description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer." },
     ],
     links: [
-// ... (kode di bawahnya biarin aja, gak usah diubah)
       { rel: "icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -42,27 +38,31 @@ export const Route = createFileRoute("/")({
   }),
   component: Portfolio,
 });
+
+// ─────────────────────────────────────────────
+// Constants
+// ─────────────────────────────────────────────
 const NAV = [
-  { label: "Tentang", href: "#about" },
-  { label: "Skill", href: "#skills" },
-  { label: "Proyek", href: "#projects" },
-  { label: "Pengalaman", href: "#experience" },
-  { label: "Kontak", href: "#contact" },
+  { label: "Tentang",     href: "#about"      },
+  { label: "Skill",       href: "#skills"     },
+  { label: "Proyek",      href: "#projects"   },
+  { label: "Pengalaman",  href: "#experience" },
+  { label: "Kontak",      href: "#contact"    },
 ];
 
 const TECH_INFO: Record<string, { desc: string; use: string; color: string; textColor: string; icon: string }> = {
-  "HTML":        { color: "#E34F26", textColor: "#fff", icon: "html5/ffffff",        desc: "HyperText Markup Language — bahasa markup dasar untuk membuat struktur halaman web.", use: "Digunakan untuk membuat kerangka/struktur konten di setiap halaman website." },
-  "JavaScript":  { color: "#F7DF1E", textColor: "#1a1a1a", icon: "javascript/1a1a1a",  desc: "Bahasa pemrograman yang berjalan di browser untuk membuat halaman web menjadi interaktif.", use: "Digunakan untuk animasi, validasi form, fetch data dari API, dan logika frontend." },
-  "Node JS":     { color: "#339933", textColor: "#fff", icon: "nodedotjs/ffffff",     desc: "Runtime JavaScript di sisi server yang memungkinkan JS berjalan di luar browser.", use: "Digunakan untuk membuat backend/server, REST API, dan tools development." },
-  "Tailwind CSS":{ color: "#06B6D4", textColor: "#fff", icon: "tailwindcss/ffffff",   desc: "Framework CSS berbasis utility-class yang mempercepat styling langsung di HTML.", use: "Digunakan untuk styling cepat tanpa menulis CSS manual, sangat populer di React." },
+  "HTML":        { color: "#E34F26", textColor: "#fff",    icon: "html5/ffffff",      desc: "HyperText Markup Language — bahasa markup dasar untuk membuat struktur halaman web.", use: "Digunakan untuk membuat kerangka/struktur konten di setiap halaman website." },
+  "JavaScript":  { color: "#F7DF1E", textColor: "#1a1a1a", icon: "javascript/1a1a1a", desc: "Bahasa pemrograman yang berjalan di browser untuk membuat halaman web menjadi interaktif.", use: "Digunakan untuk animasi, validasi form, fetch data dari API, dan logika frontend." },
+  "Node JS":     { color: "#339933", textColor: "#fff",    icon: "nodedotjs/ffffff",  desc: "Runtime JavaScript di sisi server yang memungkinkan JS berjalan di luar browser.", use: "Digunakan untuk membuat backend/server, REST API, dan tools development." },
+  "Tailwind CSS":{ color: "#06B6D4", textColor: "#fff",    icon: "tailwindcss/ffffff",desc: "Framework CSS berbasis utility-class yang mempercepat styling langsung di HTML.", use: "Digunakan untuk styling cepat tanpa menulis CSS manual, sangat populer di React." },
   "ReactJS":     { color: "#20232A", textColor: "#61DAFB", icon: "react/61DAFB",      desc: "Library JavaScript buatan Meta untuk membangun antarmuka pengguna berbasis komponen.", use: "Digunakan untuk membuat UI yang dinamis, reusable, dan mudah di-maintain." },
-  "Vite":        { color: "#646CFF", textColor: "#fff", icon: "vite/ffffff",          desc: "Build tool generasi terbaru yang sangat cepat untuk project frontend modern.", use: "Digunakan sebagai pengganti Webpack, mempercepat development server dan build production." },
-  "CSS":         { color: "#1572B6", textColor: "#fff", icon: "css3/ffffff",          desc: "Cascading Style Sheets — bahasa untuk mengatur tampilan dan gaya halaman HTML.", use: "Digunakan untuk mengatur warna, font, layout, animasi, dan responsivitas halaman." },
-  "Bootstrap":   { color: "#7952B3", textColor: "#fff", icon: "bootstrap/ffffff",     desc: "Framework CSS populer dengan komponen UI siap pakai seperti tombol, navbar, grid.", use: "Digunakan untuk membangun tampilan web responsif dengan cepat tanpa banyak CSS custom." },
+  "Vite":        { color: "#646CFF", textColor: "#fff",    icon: "vite/ffffff",       desc: "Build tool generasi terbaru yang sangat cepat untuk project frontend modern.", use: "Digunakan sebagai pengganti Webpack, mempercepat development server dan build production." },
+  "CSS":         { color: "#1572B6", textColor: "#fff",    icon: "css3/ffffff",       desc: "Cascading Style Sheets — bahasa untuk mengatur tampilan dan gaya halaman HTML.", use: "Digunakan untuk mengatur warna, font, layout, animasi, dan responsivitas halaman." },
+  "Bootstrap":   { color: "#7952B3", textColor: "#fff",    icon: "bootstrap/ffffff",  desc: "Framework CSS populer dengan komponen UI siap pakai seperti tombol, navbar, grid.", use: "Digunakan untuk membangun tampilan web responsif dengan cepat tanpa banyak CSS custom." },
   "Firebase":    { color: "#FFCA28", textColor: "#1a1a1a", icon: "firebase/1a1a1a",   desc: "Platform Backend-as-a-Service dari Google dengan database realtime, auth, dan hosting.", use: "Digunakan untuk autentikasi user, penyimpanan data realtime, dan deploy aplikasi web." },
-  "Material UI": { color: "#007FFF", textColor: "#fff", icon: "mui/ffffff",           desc: "Library komponen React yang mengikuti panduan desain Material Design dari Google.", use: "Digunakan untuk membuat UI yang konsisten dan profesional dengan komponen siap pakai." },
-  "Vercel":      { color: "#000000", textColor: "#fff", icon: "vercel/ffffff",        desc: "Platform cloud untuk deploy dan hosting aplikasi frontend, terutama Next.js dan React.", use: "Digunakan untuk deploy project secara instan dengan integrasi GitHub dan CDN global." },
-  "SweetAlert2": { color: "#FF7043", textColor: "#fff", icon: "sweetalert2/ffffff",   desc: "Library JavaScript untuk membuat dialog/popup/alert yang cantik dan customizable.", use: "Digunakan sebagai pengganti alert bawaan browser dengan tampilan yang lebih menarik." },
+  "Material UI": { color: "#007FFF", textColor: "#fff",    icon: "mui/ffffff",        desc: "Library komponen React yang mengikuti panduan desain Material Design dari Google.", use: "Digunakan untuk membuat UI yang konsisten dan profesional dengan komponen siap pakai." },
+  "Vercel":      { color: "#000000", textColor: "#fff",    icon: "vercel/ffffff",     desc: "Platform cloud untuk deploy dan hosting aplikasi frontend, terutama Next.js dan React.", use: "Digunakan untuk deploy project secara instan dengan integrasi GitHub dan CDN global." },
+  "SweetAlert2": { color: "#FF7043", textColor: "#fff",    icon: "sweetalert2/ffffff",desc: "Library JavaScript untuk membuat dialog/popup/alert yang cantik dan customizable.", use: "Digunakan sebagai pengganti alert bawaan browser dengan tampilan yang lebih menarik." },
 };
 
 const ABOUT_CARDS = [
@@ -73,122 +73,183 @@ const ABOUT_CARDS = [
 ];
 
 const SOCIAL_LINKS = [
-  {
-    icon: Github,
-    href: "https://github.com/dikarahmat",
-    label: "GitHub",
-    hoverBg: "#24292e",
-    hoverColor: "#ffffff",
-  },
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/dika-rahmat-fadillah-43a68231a/",
-    label: "LinkedIn",
-    hoverBg: "#0A66C2",
-    hoverColor: "#ffffff",
-  },
-  {
-    icon: Instagram,
-    href: "https://www.instagram.com/paparazzziii_?igsh=bGdxMnl1cDg5amxt",
-    label: "Instagram",
-    hoverBg: "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)",
-    hoverColor: "#ffffff",
-  },
+  { icon: Github,    href: "https://github.com/dikarahmat",                                          label: "GitHub",    hoverBg: "#24292e",                                                                                           hoverColor: "#ffffff" },
+  { icon: Linkedin,  href: "https://www.linkedin.com/in/dika-rahmat-fadillah-43a68231a/",            label: "LinkedIn",  hoverBg: "#0A66C2",                                                                                           hoverColor: "#ffffff" },
+  { icon: Instagram, href: "https://www.instagram.com/paparazzziii_?igsh=bGdxMnl1cDg5amxt",         label: "Instagram", hoverBg: "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)", hoverColor: "#ffffff" },
 ];
 
-function Portfolio() {
-  const [dark, setDark] = useState(false);
-  const [activeSkill, setActiveSkill] = useState<string | null>(null);
-  const [activeAbout, setActiveAbout] = useState<string | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  // State untuk Back to Top
-  const [showTopBtn, setShowTopBtn] = useState(false);
+// Skill pill data
+const SKILLS_LEFT = [
+  { n: "HTML",       s: "html5",      c: "FFFFFF", bg: "#E34F26", hoverBg: "#E34F26", hoverText: "#FFFFFF" },
+  { n: "JavaScript", s: "javascript", c: "000000", bg: "#F7DF1E", hoverBg: "#F7DF1E", hoverText: "#000000" },
+  { n: "Node JS",    s: "nodedotjs",  c: "FFFFFF", bg: "#339933", hoverBg: "#339933", hoverText: "#FFFFFF" },
+];
+const SKILLS_RIGHT = [
+  { n: "Tailwind CSS", s: "tailwindcss", c: "FFFFFF", bg: "#06B6D4", hoverBg: "#06B6D4", hoverText: "#FFFFFF" },
+  { n: "ReactJS",      s: "react",       c: "000000", bg: "#61DAFB", hoverBg: "#61DAFB", hoverText: "#000000" },
+  { n: "Vite",         s: "vite",        c: "FFFFFF", bg: "#646CFF", hoverBg: "#646CFF", hoverText: "#FFFFFF" },
+];
+const SKILLS_BOTTOM = [
+  { n: "CSS",         s: "css3",        c: "FFFFFF", bg: "#1572B6", hoverBg: "#1572B6", hoverText: "#FFFFFF" },
+  { n: "Bootstrap",   s: "bootstrap",   c: "FFFFFF", bg: "#7952B3", hoverBg: "#7952B3", hoverText: "#FFFFFF" },
+  { n: "Firebase",    s: "firebase",    c: "000000", bg: "#FFCA28", hoverBg: "#FFCA28", hoverText: "#000000" },
+  { n: "Material UI", s: "mui",         c: "FFFFFF", bg: "#007FFF", hoverBg: "#007FFF", hoverText: "#FFFFFF" },
+  { n: "Vercel",      s: "vercel",      c: "FFFFFF", bg: "#000000", hoverBg: "#000000", hoverText: "#FFFFFF" },
+  { n: "SweetAlert2", s: "sweetalert2", c: "FFFFFF", bg: "#FF7043", hoverBg: "#FF7043", hoverText: "#FFFFFF" },
+];
 
-  // Deteksi seberapa jauh user nge-scroll
+const EDUCATION = [
+  { y: "2024 — Sekarang", s: "S1 Teknik Informatika", i: "Universitas Pamulang",       color: "#84cc16" },
+  { y: "2021 — 2024",     s: "SMA — Jurusan IPA",     i: "SMA Negeri 1 Sendang Agung", color: "#0EA5E9" },
+  { y: "2018 — 2021",     s: "SMP",                   i: "SMP Negeri 2 Sendang Agung", color: "#F59E0B" },
+];
+
+const PROJECTS = [
+  { t: "KantinKu", desc: "Aplikasi pemesanan makanan kantin berbasis web. Pesan makan, tanpa antre.", tag: "React • Vite • Firebase",          url: "https://kantinku-chi.vercel.app/",                             img: kantinkuImg },
+  { t: "do.it",    desc: "Aplikasi todo list simpel dan bersih untuk mengelola tugas harian.",        tag: "React • Vite • Tailwind CSS",      url: "https://todo-app-dikarahmats-projects.vercel.app/",            img: doitImg     },
+  { t: "skies.",   desc: "Aplikasi cuaca modern untuk cek kondisi cuaca real-time kota mana saja.",   tag: "React • Vite • OpenWeather API",   url: "https://weather-app-hazel-delta-31.vercel.app/",               img: skiesImg    },
+  { t: "memory_",  desc: "Card matching memory game dengan 4 level kesulitan, timer, dan best score.",tag: "React • Vite • CSS",               url: "https://memory-dk.vercel.app/",                                img: memoryImg   },
+];
+
+const EXPERIENCE = [
+  { r: "Organisasi Siswa Intra Sekolah", c: "Ketua OSIS",    s: "SMA Negeri 1 Sendang Agung", y: "2022 — 2023", color: "#7C3AED" },
+  { r: "Pramuka",                        c: "Pradana Putra", s: "SMA Negeri 1 Sendang Agung", y: "2021 — 2023", color: "#F59E0B" },
+];
+
+// ─────────────────────────────────────────────
+// Hook: Audio feedback
+// ─────────────────────────────────────────────
+function useClickSound() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowTopBtn(true);
-      } else {
-        setShowTopBtn(false);
-      }
-    };
-    
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    audioRef.current = new Audio(clickSound);
+    audioRef.current.volume = 0.45;
   }, []);
 
-  // Fungsi buat mulus balik ke atas
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+  const play = useCallback(() => {
+    if (!audioRef.current) return;
+    // Reset agar bisa play ulang cepat tanpa nunggu selesai
+    audioRef.current.currentTime = 0;
+    audioRef.current.play().catch(() => {
+      // Autoplay policy — abaikan, user belum berinteraksi
     });
-  };
+  }, []);
+
+  return play;
+}
+
+// ─────────────────────────────────────────────
+// Main Component
+// ─────────────────────────────────────────────
+function Portfolio() {
+  const [dark, setDark]               = useState(false);
+  const [activeSkill, setActiveSkill] = useState<string | null>(null);
+  const [activeAbout, setActiveAbout] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen]       = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [showTopBtn, setShowTopBtn]   = useState(false);
+
+  const playClick = useClickSound();
+
+  // Sync dark mode ke <html>
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
+  // Back-to-top visibility
+  useEffect(() => {
+    const onScroll = () => setShowTopBtn(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // ── Handler dark mode with sound ──
+  const handleToggleDark = () => {
+    playClick();
+    setDark((d) => !d);
+  };
+
+  // ── Skill pill: hover play sound ──
+  const handleSkillEnter = (e: React.MouseEvent<HTMLDivElement>, t: { hoverBg: string; hoverText: string }) => {
+    playClick();
+    const el = e.currentTarget as HTMLElement;
+    el.style.backgroundColor = t.hoverBg;
+    el.style.color            = t.hoverText;
+    el.style.borderColor      = t.hoverBg;
+  };
+  const handleSkillLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget as HTMLElement;
+    el.style.backgroundColor = "";
+    el.style.color            = "";
+    el.style.borderColor      = "";
+  };
+
+  // ── Pill component (DRY) ──
+  const SkillPill = ({ t, extraStyle }: { t: typeof SKILLS_LEFT[number]; extraStyle?: React.CSSProperties }) => (
+    <div
+      key={t.n}
+      className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border bg-card py-1.5 pr-5 pl-1.5 text-sm font-medium transition-all duration-300"
+      style={{ boxShadow: "var(--shadow-card)", ...extraStyle }}
+      onClick={() => setActiveSkill(t.n)}
+      onMouseEnter={(e) => handleSkillEnter(e, t)}
+      onMouseLeave={handleSkillLeave}
+    >
+      <span className="grid h-8 w-8 place-items-center rounded-full" style={{ background: t.bg }}>
+        <img src={`https://cdn.simpleicons.org/${t.s}/${t.c}`} alt="" className="h-4 w-4" loading="lazy" />
+      </span>
+      {t.n}
+    </div>
+  );
+
+  // ─────────────────────────────────────────────
+  // Render
+  // ─────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-background text-foreground">
 
-      {/* NAV */}
+      {/* ── NAV ── */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 md:py-4">
 
           <a href="#" className="-my-3 md:-my-6">
-            <img
-              src={logo}
-              alt="Logo"
-              className="h-13 w-auto md:h-17 transition-all duration-300 dark:invert"
-            />
+            <img src={logo} alt="Logo" className="h-13 w-auto transition-all duration-300 dark:invert md:h-17" />
           </a>
 
+          {/* Desktop Nav */}
           <nav className="hidden gap-8 md:flex">
             {NAV.map((n) => (
-              <a
-                key={n.href}
-                href={n.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
+              <a key={n.href} href={n.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                 {n.label}
               </a>
             ))}
           </nav>
 
+          {/* Desktop Actions */}
           <div className="hidden items-center gap-3 md:flex">
             <button
-              onClick={() => setDark(!dark)}
+              onClick={handleToggleDark}
               className="grid h-9 w-9 place-items-center rounded-full border border-border transition-all duration-200 hover:scale-105 hover:bg-secondary"
               aria-label="Toggle dark mode"
             >
-              {dark
-                ? <Sun className="h-4 w-4 text-foreground" />
-                : <Moon className="h-4 w-4 text-foreground" />
-              }
+              {dark ? <Sun className="h-4 w-4 text-foreground" /> : <Moon className="h-4 w-4 text-foreground" />}
             </button>
-
-            <a
-              href="#contact"
-              className="rounded-full bg-foreground px-5 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-105"
-            >
+            <a href="#contact" className="rounded-full bg-foreground px-5 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-105">
               Hubungi
             </a>
           </div>
 
+          {/* Mobile Actions */}
           <div className="flex items-center gap-2 md:hidden">
             <button
-              onClick={() => setDark(!dark)}
+              onClick={handleToggleDark}
               className="grid h-9 w-9 place-items-center rounded-full border border-border transition-all hover:bg-secondary"
               aria-label="Toggle dark mode"
             >
-              {dark
-                ? <Sun className="h-4 w-4 text-foreground" />
-                : <Moon className="h-4 w-4 text-foreground" />
-              }
+              {dark ? <Sun className="h-4 w-4 text-foreground" /> : <Moon className="h-4 w-4 text-foreground" />}
             </button>
-
             <button
               className="grid h-9 w-9 place-items-center rounded-full border border-border"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -207,6 +268,7 @@ function Portfolio() {
           </div>
         </div>
 
+        {/* Mobile Menu */}
         {menuOpen && (
           <div className="border-t border-border bg-background/95 backdrop-blur-md md:hidden">
             <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
@@ -232,17 +294,16 @@ function Portfolio() {
         )}
       </header>
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section
-        className="relative overflow-hidden px-6 pt-8 pb-0 md:pt-12 md:pb-0 transition-all duration-500"
+        className="relative overflow-hidden px-6 pb-0 pt-8 transition-all duration-500 md:pb-0 md:pt-12"
         style={{
-          background: dark 
-            ? "radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25) 0%, transparent 70%)" 
-            : "var(--gradient-lime)"
+          background: dark
+            ? "radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25) 0%, transparent 70%)"
+            : "var(--gradient-lime)",
         }}
       >
         <div className="mx-auto max-w-6xl">
-
           <div className="mb-4 flex justify-center md:mb-8">
             <a
               href="/tugas-imk.html"
@@ -286,7 +347,7 @@ function Portfolio() {
               passionate dalam menciptakan pengalaman digital yang intuitif dengan prinsip IMK.
             </div>
 
-            <div className="absolute bottom-12 right-8 z-20 hidden w-[220px] md:block">
+            <div className="absolute bottom-12 right-8 z-20 hidden md:block">
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-primary-foreground shadow-xl transition-transform hover:scale-105"
@@ -299,67 +360,61 @@ function Portfolio() {
               Mahasiswa <strong className="text-foreground">Teknik Informatika</strong> yang fokus pada front-end dan desain UI berlandaskan IMK.
             </div>
 
-{/* Mobile CTA */}
-<div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center md:hidden">
-  <a
-    href="/cv-dika.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white shadow-xl transition-all hover:scale-105 dark:bg-black/50 dark:backdrop-blur-md dark:border dark:border-white/10"
-  >
-    <Download className="h-4 w-4" /> Download CV
-  </a>
-</div>
+            {/* Mobile CTA */}
+            <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center md:hidden">
+              <a
+                href="/cv-dika.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white shadow-xl transition-all hover:scale-105 dark:border dark:border-white/10 dark:bg-black/50 dark:backdrop-blur-md"
+              >
+                <Download className="h-4 w-4" /> Download CV
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* MARQUEE */}
+      {/* ── MARQUEE ── */}
       <div className="w-full overflow-hidden border-y border-border bg-background py-3 md:py-4">
-        <div
-          className="flex w-max items-center gap-x-12"
-          style={{ animation: "marquee 20s linear infinite" }}
-        >
+        <div className="flex w-max items-center gap-x-12" style={{ animation: "marquee 20s linear infinite" }}>
           {[
             "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Vite", "Node.js",
             "Bootstrap", "Firebase", "Material UI", "Vercel", "SweetAlert2",
             "HTML", "CSS", "JavaScript", "React", "Tailwind CSS", "Vite", "Node.js",
             "Bootstrap", "Firebase", "Material UI", "Vercel", "SweetAlert2",
           ].map((t, i) => (
-            <span key={i} className="italic-display whitespace-nowrap text-lg md:text-xl text-muted-foreground">
+            <span key={i} className="italic-display whitespace-nowrap text-lg text-muted-foreground md:text-xl">
               {t}
             </span>
           ))}
         </div>
       </div>
 
-      {/* ABOUT */}
-      <section id="about" className="px-6 pt-10 pb-8 md:pt-24 md:pb-16">
-        <div className="mx-auto grid max-w-5xl gap-4 md:gap-6 md:grid-cols-[1fr_1.5fr] md:items-center">
-          <div>
-            <h2 className="font-display text-4xl leading-tight md:text-5xl">
-              Tentang <span className="italic-display">Saya</span>
-            </h2>
-          </div>
+      {/* ── ABOUT ── */}
+      <section id="about" className="px-6 pb-8 pt-10 md:pb-16 md:pt-24">
+        <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-[1fr_1.5fr] md:items-center md:gap-6">
+          <h2 className="font-display text-4xl leading-tight md:text-5xl">
+            Tentang <span className="italic-display">Saya</span>
+          </h2>
           <p className="text-lg leading-relaxed text-muted-foreground">
-            Saya seorang mahasiswa yang antusias dalam dunia desain dan teknologi.
-            Berfokus pada perpaduan antara{" "}
+            Saya seorang mahasiswa yang antusias dalam dunia desain dan teknologi. Berfokus pada perpaduan antara{" "}
             <span className="text-foreground">strategi yang jelas, desain yang rapi, dan empati terhadap pengguna</span>{" "}
             untuk menciptakan pengalaman digital yang benar-benar bermakna.
           </p>
         </div>
 
-        <div className="mx-auto mt-4 grid max-w-5xl grid-cols-2 gap-3 md:grid-cols-4 md:mt-5 md:gap-4">
+        <div className="mx-auto mt-4 grid max-w-5xl grid-cols-2 gap-3 md:mt-5 md:grid-cols-4 md:gap-4">
           {ABOUT_CARDS.map(({ t, color, lightColor }) => {
             const isHovered = hoveredCard === t;
             return (
               <div
                 key={t}
-                className="flex flex-col justify-center rounded-2xl border cursor-pointer select-none transition-all duration-200 overflow-hidden"
+                className="flex cursor-pointer select-none flex-col justify-center overflow-hidden rounded-2xl border transition-all duration-200"
                 style={{
-                  borderColor: isHovered ? color : "var(--border)",
-                  backgroundColor: isHovered ? lightColor : "var(--card)",
-                  boxShadow: isHovered ? `0 8px 24px ${color}33` : "none",
+                  borderColor:     isHovered ? color           : "var(--border)",
+                  backgroundColor: isHovered ? lightColor      : "var(--card)",
+                  boxShadow:       isHovered ? `0 8px 24px ${color}33` : "none",
                 }}
                 onMouseEnter={() => setHoveredCard(t)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -376,7 +431,7 @@ function Portfolio() {
                     {t === "Research"    && <Rocket  className="h-5 w-5" style={{ color: isHovered ? "#fff" : "var(--foreground)" }} />}
                   </span>
                   <span
-                    className="font-medium text-sm transition-colors duration-200"
+                    className="text-sm font-medium transition-colors duration-200"
                     style={{ color: isHovered ? color : "var(--foreground)" }}
                   >
                     {t}
@@ -388,132 +443,59 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* SKILLS */}
-      <section id="skills" className="relative bg-background px-6 pt-8 pb-10 md:pt-20 md:pb-32">
-        {(() => {
-          const pillClass = "inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pr-5 pl-1.5 text-sm font-medium transition-all duration-300 cursor-pointer";
-          const makePill = (t: { n: string; s: string; c: string; bg: string; hoverBg: string; hoverText: string }, extraStyle?: React.CSSProperties) => (
-            <div
-              key={t.n}
-              className={pillClass}
-              style={{ boxShadow: "var(--shadow-card)", ...extraStyle }}
-              onClick={() => setActiveSkill(t.n)}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.backgroundColor = t.hoverBg;
-                el.style.color = t.hoverText;
-                el.style.borderColor = t.hoverBg;
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.backgroundColor = "";
-                el.style.color = "";
-                el.style.borderColor = "";
-              }}
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-full" style={{ background: t.bg }}>
-                <img src={`https://cdn.simpleicons.org/${t.s}/${t.c}`} alt="" className="h-4 w-4" loading="lazy" />
-              </span>
-              {t.n}
-            </div>
-          );
+      {/* ── SKILLS ── */}
+      <section id="skills" className="relative bg-background px-6 pb-10 pt-8 md:pb-32 md:pt-20">
+        {/* Mobile */}
+        <div className="px-2 py-4 text-center md:hidden">
+          <h2 className="font-display text-2xl leading-[1.2] tracking-tight">
+            fokus saya pada perpaduan{" "}
+            <span className="italic-display">strategi yang jelas</span>,
+            desain yang rapi, dan empati pengguna untuk{" "}
+            <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
+          </h2>
+        </div>
 
-          const left = [
-            { n: "HTML",       s: "html5",      c: "FFFFFF", bg: "#E34F26", hoverBg: "#E34F26", hoverText: "#FFFFFF" },
-            { n: "JavaScript", s: "javascript", c: "000000", bg: "#F7DF1E", hoverBg: "#F7DF1E", hoverText: "#000000" },
-            { n: "Node JS",    s: "nodedotjs",  c: "FFFFFF", bg: "#339933", hoverBg: "#339933", hoverText: "#FFFFFF" },
-          ];
-          const right = [
-            { n: "Tailwind CSS", s: "tailwindcss", c: "FFFFFF", bg: "#06B6D4", hoverBg: "#06B6D4", hoverText: "#FFFFFF" },
-            { n: "ReactJS",      s: "react",        c: "000000", bg: "#61DAFB", hoverBg: "#61DAFB", hoverText: "#000000" },
-            { n: "Vite",         s: "vite",         c: "FFFFFF", bg: "#646CFF", hoverBg: "#646CFF", hoverText: "#FFFFFF" },
-          ];
+        {/* Desktop */}
+        <div className="mx-auto hidden max-w-6xl items-center gap-10 md:grid md:grid-cols-[auto_1fr_auto]">
+          <div className="flex flex-col gap-10">
+            {SKILLS_LEFT.map((t, i) => (
+              <SkillPill key={t.n} t={t} extraStyle={{ transform: i === 1 ? "translateX(28px)" : i === 2 ? "translateX(10px)" : "translateX(-10px)" }} />
+            ))}
+          </div>
+          <div className="text-center">
+            <h2 className="font-display text-5xl leading-[1.15] tracking-tight">
+              fokus saya pada perpaduan{" "}
+              <span className="italic-display">strategi yang jelas</span>,
+              desain yang rapi, dan empati pengguna untuk{" "}
+              <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
+            </h2>
+          </div>
+          <div className="flex flex-col gap-10">
+            {SKILLS_RIGHT.map((t, i) => (
+              <SkillPill key={t.n} t={t} extraStyle={{ transform: i === 1 ? "translateX(-28px)" : i === 2 ? "translateX(-10px)" : "translateX(10px)" }} />
+            ))}
+          </div>
+        </div>
 
-          return (
-            <>
-              {/* Mobile layout */}
-              <div className="md:hidden px-2 py-4 text-center">
-                <h2 className="font-display text-2xl leading-[1.2] tracking-tight">
-                  fokus saya pada perpaduan{" "}
-                  <span className="italic-display">strategi yang jelas</span>,
-                  desain yang rapi, dan empati pengguna untuk{" "}
-                  <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
-                </h2>
-              </div>
-
-              {/* Desktop layout */}
-              <div className="hidden md:grid mx-auto max-w-6xl items-center gap-10 md:grid-cols-[auto_1fr_auto]">
-                <div className="flex flex-col gap-10">
-                  {left.map((t, i) => makePill(t, { transform: i === 1 ? "translateX(28px)" : i === 2 ? "translateX(10px)" : "translateX(-10px)" }))}
-                </div>
-                <div className="text-center">
-                  <h2 className="font-display text-5xl leading-[1.15] tracking-tight">
-                    fokus saya pada perpaduan{" "}
-                    <span className="italic-display">strategi yang jelas</span>,
-                    desain yang rapi, dan empati pengguna untuk{" "}
-                    <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
-                  </h2>
-                </div>
-                <div className="flex flex-col gap-10">
-                  {right.map((t, i) => makePill(t, { transform: i === 1 ? "translateX(-28px)" : i === 2 ? "translateX(-10px)" : "translateX(10px)" }))}
-                </div>
-              </div>
-            </>
-          );
-        })()}
-
+        {/* Bottom pills */}
         <div className="mx-auto mt-16 hidden max-w-5xl flex-wrap justify-center gap-3 md:flex">
-          {[
-            { n: "CSS",         s: "css3",        c: "FFFFFF", bg: "#1572B6", hoverBg: "#1572B6", hoverText: "#FFFFFF" },
-            { n: "Bootstrap",   s: "bootstrap",   c: "FFFFFF", bg: "#7952B3", hoverBg: "#7952B3", hoverText: "#FFFFFF" },
-            { n: "Firebase",    s: "firebase",    c: "000000", bg: "#FFCA28", hoverBg: "#FFCA28", hoverText: "#000000" },
-            { n: "Material UI", s: "mui",         c: "FFFFFF", bg: "#007FFF", hoverBg: "#007FFF", hoverText: "#FFFFFF" },
-            { n: "Vercel",      s: "vercel",      c: "FFFFFF", bg: "#000000", hoverBg: "#000000", hoverText: "#FFFFFF" },
-            { n: "SweetAlert2", s: "sweetalert2", c: "FFFFFF", bg: "#FF7043", hoverBg: "#FF7043", hoverText: "#FFFFFF" },
-          ].map((t) => (
-            <div
-              key={t.n}
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pr-5 pl-1.5 text-sm font-medium transition-all duration-300 cursor-pointer"
-              onClick={() => setActiveSkill(t.n)}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.backgroundColor = t.hoverBg;
-                el.style.color = t.hoverText;
-                el.style.borderColor = t.hoverBg;
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.backgroundColor = "";
-                el.style.color = "";
-                el.style.borderColor = "";
-              }}
-              style={{ boxShadow: "var(--shadow-card)" }}
-            >
-              <span className="grid h-8 w-8 place-items-center rounded-full" style={{ background: t.bg }}>
-                <img src={`https://cdn.simpleicons.org/${t.s}/${t.c}`} alt="" className="h-4 w-4" loading="lazy" />
-              </span>
-              {t.n}
-            </div>
+          {SKILLS_BOTTOM.map((t) => (
+            <SkillPill key={t.n} t={t} />
           ))}
         </div>
       </section>
 
-      {/* EDUCATION */}
+      {/* ── EDUCATION ── */}
       <section className="bg-secondary px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-6 md:mb-12 flex items-end justify-between">
+          <div className="mb-6 flex items-end justify-between md:mb-12">
             <h2 className="font-display text-4xl md:text-5xl">
               Riwayat <span className="italic-display">Pendidikan</span>
             </h2>
             <GraduationCap className="hidden h-10 w-10 text-muted-foreground md:block" />
           </div>
-
           <div className="space-y-3 md:space-y-4">
-            {[
-              { y: "2024 — Sekarang", s: "S1 Teknik Informatika", i: "Universitas Pamulang",       color: "#84cc16" },
-              { y: "2021 — 2024",     s: "SMA — Jurusan IPA",     i: "SMA Negeri 1 Sendang Agung", color: "#0EA5E9" },
-              { y: "2018 — 2021",     s: "SMP",                   i: "SMP Negeri 2 Sendang Agung", color: "#F59E0B" },
-            ].map((e) => (
+            {EDUCATION.map((e) => (
               <div
                 key={e.s}
                 className="flex flex-col gap-1 rounded-2xl border border-border bg-card px-5 py-4 md:p-6"
@@ -528,47 +510,17 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* PROJECTS */}
+      {/* ── PROJECTS ── */}
       <section id="projects" className="px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center font-display text-4xl md:text-5xl">
             My <span className="italic-display">Project</span>
           </h2>
-
           <div className="mt-6 grid gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
-            {[
-              {
-                t: "KantinKu",
-                desc: "Aplikasi pemesanan makanan kantin berbasis web. Pesan makan, tanpa antre.",
-                tag: "React • Vite • Firebase",
-                url: "https://kantinku-chi.vercel.app/",
-                img: kantinkuImg,
-              },
-              {
-                t: "do.it",
-                desc: "Aplikasi todo list simpel dan bersih untuk mengelola tugas harian.",
-                tag: "React • Vite • Tailwind CSS",
-                url: "https://todo-app-dikarahmats-projects.vercel.app/",
-                img: doitImg,
-              },
-              {
-                t: "skies.",
-                desc: "Aplikasi cuaca modern untuk cek kondisi cuaca real-time kota mana saja.",
-                tag: "React • Vite • OpenWeather API",
-                url: "https://weather-app-hazel-delta-31.vercel.app/",
-                img: skiesImg,
-              },
-              {
-                t: "memory_",
-                desc: "Card matching memory game dengan 4 level kesulitan, timer, dan best score.",
-                tag: "React • Vite • CSS",
-                url: "https://memory-dk.vercel.app/",
-                img: memoryImg,
-              },
-            ].map((p) => (
+            {PROJECTS.map((p) => (
               <a key={p.t} href={p.url} target="_blank" rel="noopener noreferrer" className="group cursor-pointer">
                 <div
-                  className="aspect-[2/1] md:aspect-video overflow-hidden rounded-2xl border border-border bg-secondary transition-transform group-hover:-translate-y-2 md:rounded-3xl"
+                  className="aspect-[2/1] overflow-hidden rounded-2xl border border-border bg-secondary transition-transform group-hover:-translate-y-2 md:aspect-video md:rounded-3xl"
                   style={{ boxShadow: "var(--shadow-card)" }}
                 >
                   <div className="relative h-full w-full">
@@ -577,9 +529,9 @@ function Portfolio() {
                       alt={p.t}
                       className="h-full w-full object-cover object-top"
                       loading="lazy"
-                      onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
                     />
-                    <div className="absolute top-3 right-3">
+                    <div className="absolute right-3 top-3">
                       <ArrowUpRight className="h-5 w-5 text-white/70 transition-transform group-hover:rotate-45 md:h-6 md:w-6" />
                     </div>
                   </div>
@@ -597,44 +549,26 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* EXPERIENCE */}
+      {/* ── EXPERIENCE ── */}
       <section id="experience" className="bg-secondary px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-6 md:mb-12 flex items-end justify-between">
+          <div className="mb-6 flex items-end justify-between md:mb-12">
             <h2 className="font-display text-4xl md:text-5xl">
               Organisasi &amp; <span className="italic-display">Kegiatan</span>
             </h2>
             <Briefcase className="hidden h-10 w-10 text-muted-foreground md:block" />
           </div>
-
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {[
-              {
-                r: "Organisasi Siswa Intra Sekolah",
-                c: "Ketua OSIS",
-                s: "SMA Negeri 1 Sendang Agung",
-                y: "2022 — 2023",
-                color: "#7C3AED"
-              },
-              {
-                r: "Pramuka",
-                c: "Pradana Putra",
-                s: "SMA Negeri 1 Sendang Agung",
-                y: "2021 — 2023",
-                color: "#F59E0B"
-              },
-            ].map((e) => (
+            {EXPERIENCE.map((e) => (
               <div
                 key={e.r}
                 className="flex flex-col rounded-2xl border border-border bg-card px-5 py-5 md:p-6"
                 style={{ borderLeft: `4px solid ${e.color}`, boxShadow: "var(--shadow-card)" }}
               >
                 <span className="mb-2 text-xs text-muted-foreground">{e.y}</span>
-                <div className="flex justify-between items-start gap-2">
-                  <span className="italic-display text-xl leading-tight md:text-2xl w-[55%]">
-                    {e.r}
-                  </span>
-                  <div className="flex flex-col text-right w-[45%]">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="italic-display w-[55%] text-xl leading-tight md:text-2xl">{e.r}</span>
+                  <div className="flex w-[45%] flex-col text-right">
                     <span className="text-sm font-medium text-foreground">{e.c}</span>
                     <span className="mt-1 text-xs leading-tight text-muted-foreground">{e.s}</span>
                   </div>
@@ -645,14 +579,14 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* CONTACT */}
+      {/* ── CONTACT ── */}
       <section
         id="contact"
-        className="relative overflow-hidden px-6 py-14 text-center md:py-28 transition-all duration-500"
+        className="relative overflow-hidden px-6 py-14 text-center transition-all duration-500 md:py-28"
         style={{
-          background: dark 
-            ? "radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25) 0%, transparent 70%)" 
-            : "var(--gradient-lime)"
+          background: dark
+            ? "radial-gradient(ellipse at top, rgba(124, 58, 237, 0.25) 0%, transparent 70%)"
+            : "var(--gradient-lime)",
         }}
       >
         <div className="mx-auto max-w-3xl">
@@ -684,12 +618,12 @@ function Portfolio() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 className="grid h-12 w-12 place-items-center rounded-full border border-foreground/15 bg-background/70 backdrop-blur transition-all duration-200 hover:scale-110 hover:border-transparent"
-                onMouseEnter={e => {
+                onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement;
                   el.style.background = hoverBg;
                   el.style.color = hoverColor;
                 }}
-                onMouseLeave={e => {
+                onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement;
                   el.style.background = "";
                   el.style.color = "";
@@ -702,12 +636,12 @@ function Portfolio() {
               href="mailto:dikarahmat998@gmail.com"
               aria-label="Email"
               className="grid h-12 w-12 place-items-center rounded-full border border-foreground/15 bg-background/70 backdrop-blur transition-all duration-200 hover:scale-110 hover:border-transparent"
-              onMouseEnter={e => {
+              onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.background = "#EA4335";
                 el.style.color = "#ffffff";
               }}
-              onMouseLeave={e => {
+              onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.background = "";
                 el.style.color = "";
@@ -719,7 +653,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* ── FOOTER ── */}
       <footer className="border-t border-border bg-background px-6 py-8 md:py-10">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground md:flex-row md:justify-between">
@@ -738,9 +672,9 @@ function Portfolio() {
         </p>
       </footer>
 
-      {/* ABOUT MODAL */}
+      {/* ── ABOUT MODAL ── */}
       {activeAbout && (() => {
-        const info = ABOUT_CARDS.find(c => c.t === activeAbout);
+        const info = ABOUT_CARDS.find((c) => c.t === activeAbout);
         if (!info) return null;
         return (
           <div
@@ -751,7 +685,7 @@ function Portfolio() {
             <div
               className="relative w-full max-w-sm rounded-3xl p-6 shadow-2xl"
               style={{ backgroundColor: info.color, color: "#fff" }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setActiveAbout(null)}
@@ -761,36 +695,28 @@ function Portfolio() {
                 ✕
               </button>
               <div className="mb-4 flex items-center gap-3">
-                <div
-                  className="grid h-12 w-12 place-items-center rounded-2xl"
-                  style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
-                >
-                  {info.t === "UI Design"    && <Palette className="h-7 w-7" />}
-                  {info.t === "Front-end"    && <Code2   className="h-7 w-7" />}
-                  {info.t === "Prototyping"  && <Layers  className="h-7 w-7" />}
-                  {info.t === "Research"     && <Rocket  className="h-7 w-7" />}
+                <div className="grid h-12 w-12 place-items-center rounded-2xl" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+                  {info.t === "UI Design"   && <Palette className="h-7 w-7" />}
+                  {info.t === "Front-end"   && <Code2   className="h-7 w-7" />}
+                  {info.t === "Prototyping" && <Layers  className="h-7 w-7" />}
+                  {info.t === "Research"    && <Rocket  className="h-7 w-7" />}
                 </div>
                 <h3 className="font-display text-2xl" style={{ color: "#fff" }}>{info.t}</h3>
               </div>
-              <div
-                className="rounded-2xl p-4"
-                style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
-              >
-                <p className="text-sm leading-relaxed" style={{ color: "#fff", opacity: 0.92 }}>
-                  {info.desc}
-                </p>
+              <div className="rounded-2xl p-4" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "#fff", opacity: 0.92 }}>{info.desc}</p>
               </div>
             </div>
           </div>
         );
       })()}
 
-      {/* SKILL MODAL */}
+      {/* ── SKILL MODAL ── */}
       {activeSkill && (() => {
-        const info = TECH_INFO[activeSkill];
-        const bgColor = info?.color ?? "#1a1a1a";
+        const info     = TECH_INFO[activeSkill];
+        const bgColor  = info?.color    ?? "#1a1a1a";
         const txtColor = info?.textColor ?? "#fff";
-        const iconSlug = info?.icon ?? "code/ffffff";
+        const iconSlug = info?.icon      ?? "code/ffffff";
         return (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -800,7 +726,7 @@ function Portfolio() {
             <div
               className="relative w-full max-w-sm rounded-3xl p-6 shadow-2xl"
               style={{ backgroundColor: bgColor, color: txtColor }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setActiveSkill(null)}
@@ -810,40 +736,25 @@ function Portfolio() {
                 ✕
               </button>
               <div className="mb-4 flex items-center gap-3">
-                <div
-                  className="grid h-12 w-12 place-items-center rounded-2xl"
-                  style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
-                >
-                  <img
-                    src={`https://cdn.simpleicons.org/${iconSlug}`}
-                    alt={activeSkill}
-                    className="h-7 w-7"
-                  />
+                <div className="grid h-12 w-12 place-items-center rounded-2xl" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+                  <img src={`https://cdn.simpleicons.org/${iconSlug}`} alt={activeSkill} className="h-7 w-7" />
                 </div>
                 <h3 className="font-display text-2xl" style={{ color: txtColor }}>{activeSkill}</h3>
               </div>
-              <p className="mb-4 text-sm leading-relaxed" style={{ color: txtColor, opacity: 0.92 }}>
-                {info?.desc}
-              </p>
-              <div
-                className="rounded-2xl p-3"
-                style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
-              >
-                <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: txtColor, opacity: 0.7 }}>
-                  Kegunaan
-                </p>
-                <p className="text-sm leading-relaxed" style={{ color: txtColor }}>
-                  {info?.use}
-                </p>
+              <p className="mb-4 text-sm leading-relaxed" style={{ color: txtColor, opacity: 0.92 }}>{info?.desc}</p>
+              <div className="rounded-2xl p-3" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+                <p className="mb-1 text-xs font-semibold uppercase tracking-wider" style={{ color: txtColor, opacity: 0.7 }}>Kegunaan</p>
+                <p className="text-sm leading-relaxed" style={{ color: txtColor }}>{info?.use}</p>
               </div>
             </div>
           </div>
         );
       })()}
-{/* TOMBOL BACK TO TOP (VERSI TRANSPARAN) */}
+
+      {/* ── BACK TO TOP ── */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-4 md:bottom-8 md:right-8 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-background/60 backdrop-blur-md border border-foreground/10 text-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-background/90 ${
+        className={`fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-foreground/10 bg-background/60 text-foreground shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-background/90 md:bottom-8 md:right-8 ${
           showTopBtn ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-10 opacity-0"
         }`}
         aria-label="Kembali ke atas"
@@ -851,6 +762,6 @@ function Portfolio() {
         <ArrowUp className="h-5 w-5" />
       </button>
 
-    </div> 
+    </div>
   );
 }
