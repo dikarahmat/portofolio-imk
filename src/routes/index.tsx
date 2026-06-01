@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import {
   Mail, Github, Linkedin, Instagram, ArrowUpRight, Sparkles,
   Code2, Palette, Layers, Rocket, GraduationCap, Briefcase,
-  Sun, Moon, Download // <--- Tambahkan Download di sini
+  Sun, Moon, Download, ArrowUp // <--- Tambahkan ArrowUp
 } from "lucide-react";
 
 // Asset Imports
@@ -17,10 +17,15 @@ import memoryImg from "@/assets/projects/memory.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Portofolio — Mahasiswa IMK" },
-      { name: "description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer (IMK)." },
-      { property: "og:title", content: "Portofolio — Mahasiswa IMK" },
-      { property: "og:description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer." },
+      { title: "Portofolio | Dika Rahmat Fadillah" },
+      { name: "description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
+      
+      // KODE OPEN GRAPH BUAT WHATSAPP
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://portofolio-imk-production.up.railway.app/" },
+      { property: "og:title", content: "Portofolio | Dika Rahmat Fadillah" },
+      { property: "og:description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
+      { property: "og:image", content: "https://portofolio-imk-production.up.railway.app/preview.jpg" },
     ],
     links: [
       { rel: "icon", href: "/favicon.png" },
@@ -34,7 +39,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Portfolio,
 });
-
 const NAV = [
   { label: "Tentang", href: "#about" },
   { label: "Skill", href: "#skills" },
@@ -95,7 +99,30 @@ function Portfolio() {
   const [activeAbout, setActiveAbout] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  // State untuk Back to Top
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
+  // Deteksi seberapa jauh user nge-scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowTopBtn(true);
+      } else {
+        setShowTopBtn(false);
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Fungsi buat mulus balik ke atas
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
@@ -269,13 +296,13 @@ function Portfolio() {
               Mahasiswa <strong className="text-foreground">Teknik Informatika</strong> yang fokus pada front-end dan desain UI berlandaskan IMK.
             </div>
 
-   {/* Mobile CTA */}
+{/* Mobile CTA */}
 <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center md:hidden">
   <a
     href="/cv-dika.pdf"
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-primary-foreground shadow-xl transition-transform hover:scale-105"
+    className="inline-flex items-center gap-2 rounded-full bg-zinc-900 px-6 py-3 text-sm font-medium text-white shadow-xl transition-all hover:scale-105 dark:bg-black/50 dark:backdrop-blur-md dark:border dark:border-white/10"
   >
     <Download className="h-4 w-4" /> Download CV
   </a>
@@ -810,7 +837,17 @@ function Portfolio() {
           </div>
         );
       })()}
+{/* TOMBOL BACK TO TOP (VERSI TRANSPARAN) */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-4 md:bottom-8 md:right-8 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-background/60 backdrop-blur-md border border-foreground/10 text-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-background/90 ${
+          showTopBtn ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-10 opacity-0"
+        }`}
+        aria-label="Kembali ke atas"
+      >
+        <ArrowUp className="h-5 w-5" />
+      </button>
 
-    </div>
+    </div> 
   );
 }
