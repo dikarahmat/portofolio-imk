@@ -20,22 +20,27 @@ import clickSound from "@/assets/suara-unik.mp3";
 // ─────────────────────────────────────────────
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: "Portofolio — Mahasiswa IMK" },
-      { name: "description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer (IMK)." },
-      { property: "og:title", content: "Portofolio — Mahasiswa IMK" },
-      { property: "og:description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer." },
-    ],
-    links: [
-      { rel: "icon", href: "/favicon.png" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap",
-      },
-    ],
-  }),
+  meta: [
+    { title: "Portofolio — Mahasiswa IMK" },
+    { name: "description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer (IMK)." },
+    { property: "og:title", content: "Portofolio | Dika Rahmat Fadillah" },
+    { property: "og:description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
+    { property: "og:image", content: "https://portofolio-imk-production.up.railway.app/preview.jpg" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:url", content: "https://portofolio-imk-production.up.railway.app/" },
+    { property: "og:type", content: "website" },
+  ],
+  links: [
+    { rel: "icon", href: "/favicon.png" },
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    {
+      rel: "stylesheet",
+      href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap",
+    },
+  ],
+}),
   component: Portfolio,
 });
 
