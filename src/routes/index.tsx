@@ -6,7 +6,6 @@ import {
   Sun, Moon, Download, ArrowUp,
 } from "lucide-react";
 
-// Asset Imports
 import dikaPortrait from "@/assets/dika-portrait.png";
 import logo from "@/assets/logo-dk.png";
 import kantinkuImg from "@/assets/projects/kantinku.png";
@@ -15,44 +14,38 @@ import skiesImg from "@/assets/projects/skies.png";
 import memoryImg from "@/assets/projects/memory.png";
 import clickSound from "@/assets/suara-unik.mp3";
 
-// ─────────────────────────────────────────────
-// Route
-// ─────────────────────────────────────────────
 export const Route = createFileRoute("/")({
   head: () => ({
-  meta: [
-    { title: "Portofolio — Mahasiswa IMK" },
-    { name: "description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer (IMK)." },
-    { property: "og:title", content: "Portofolio | Dika Rahmat Fadillah" },
-    { property: "og:description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
-    { property: "og:image", content: "https://portofolio-imk-production.up.railway.app/preview.jpg" },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:url", content: "https://portofolio-imk-production.up.railway.app/" },
-    { property: "og:type", content: "website" },
-  ],
-  links: [
-    { rel: "icon", href: "/favicon.png" },
-    { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap",
-    },
-  ],
-}),
+    meta: [
+      { title: "Portofolio — Mahasiswa IMK" },
+      { name: "description", content: "Portofolio pribadi berbasis prinsip Interaksi Manusia dan Komputer (IMK)." },
+      { property: "og:title", content: "Portofolio | Dika Rahmat Fadillah" },
+      { property: "og:description", content: "Tugas Portofolio Interaksi Manusia & Komputer." },
+      { property: "og:image", content: "https://portofolio-imk-production.up.railway.app/preview.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:url", content: "https://portofolio-imk-production.up.railway.app/" },
+      { property: "og:type", content: "website" },
+    ],
+    links: [
+      { rel: "icon", href: "/favicon.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap",
+      },
+    ],
+  }),
   component: Portfolio,
 });
 
-// ─────────────────────────────────────────────
-// Constants
-// ─────────────────────────────────────────────
 const NAV = [
-  { label: "Tentang",     href: "#about"      },
-  { label: "Skill",       href: "#skills"     },
-  { label: "Proyek",      href: "#projects"   },
-  { label: "Pengalaman",  href: "#experience" },
-  { label: "Kontak",      href: "#contact"    },
+  { label: "Tentang",    href: "#about"      },
+  { label: "Skill",      href: "#skills"     },
+  { label: "Proyek",     href: "#projects"   },
+  { label: "Pengalaman", href: "#experience" },
+  { label: "Kontak",     href: "#contact"    },
 ];
 
 const TECH_INFO: Record<string, { desc: string; use: string; color: string; textColor: string; icon: string }> = {
@@ -78,12 +71,11 @@ const ABOUT_CARDS = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: Github,    href: "https://github.com/dikarahmat",                                          label: "GitHub",    hoverBg: "#24292e",                                                                                           hoverColor: "#ffffff" },
-  { icon: Linkedin,  href: "https://www.linkedin.com/in/dika-rahmat-fadillah-43a68231a/",            label: "LinkedIn",  hoverBg: "#0A66C2",                                                                                           hoverColor: "#ffffff" },
-  { icon: Instagram, href: "https://www.instagram.com/paparazzziii_?igsh=bGdxMnl1cDg5amxt",         label: "Instagram", hoverBg: "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)", hoverColor: "#ffffff" },
+  { icon: Github,    href: "https://github.com/dikarahmat",                                         label: "GitHub",    hoverBg: "#24292e",                                                              hoverColor: "#ffffff" },
+  { icon: Linkedin,  href: "https://www.linkedin.com/in/dika-rahmat-fadillah-43a68231a/",            label: "LinkedIn",  hoverBg: "#0A66C2",                                                              hoverColor: "#ffffff" },
+  { icon: Instagram, href: "https://www.instagram.com/paparazzziii_?igsh=bGdxMnl1cDg5amxt",        label: "Instagram", hoverBg: "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)", hoverColor: "#ffffff" },
 ];
 
-// Skill pill data
 const SKILLS_LEFT = [
   { n: "HTML",       s: "html5",      c: "FFFFFF", bg: "#E34F26", hoverBg: "#E34F26", hoverText: "#FFFFFF" },
   { n: "JavaScript", s: "javascript", c: "000000", bg: "#F7DF1E", hoverBg: "#F7DF1E", hoverText: "#000000" },
@@ -110,10 +102,10 @@ const EDUCATION = [
 ];
 
 const PROJECTS = [
-  { t: "KantinKu", desc: "Aplikasi pemesanan makanan kantin berbasis web. Pesan makan, tanpa antre.", tag: "React • Vite • Firebase",          url: "https://kantinku-chi.vercel.app/",                             img: kantinkuImg },
-  { t: "do.it",    desc: "Aplikasi todo list simpel dan bersih untuk mengelola tugas harian.",        tag: "React • Vite • Tailwind CSS",      url: "https://todo-app-dikarahmats-projects.vercel.app/",            img: doitImg     },
-  { t: "skies.",   desc: "Aplikasi cuaca modern untuk cek kondisi cuaca real-time kota mana saja.",   tag: "React • Vite • OpenWeather API",   url: "https://weather-app-hazel-delta-31.vercel.app/",               img: skiesImg    },
-  { t: "memory_",  desc: "Card matching memory game dengan 4 level kesulitan, timer, dan best score.",tag: "React • Vite • CSS",               url: "https://memory-dk.vercel.app/",                                img: memoryImg   },
+  { t: "KantinKu", desc: "Aplikasi pemesanan makanan kantin berbasis web. Pesan makan, tanpa antre.", tag: "React • Vite • Firebase",        url: "https://kantinku-chi.vercel.app/",                         img: kantinkuImg },
+  { t: "do.it",    desc: "Aplikasi todo list simpel dan bersih untuk mengelola tugas harian.",        tag: "React • Vite • Tailwind CSS",    url: "https://todo-app-dikarahmats-projects.vercel.app/",         img: doitImg     },
+  { t: "skies.",   desc: "Aplikasi cuaca modern untuk cek kondisi cuaca real-time kota mana saja.",   tag: "React • Vite • OpenWeather API", url: "https://weather-app-hazel-delta-31.vercel.app/",             img: skiesImg    },
+  { t: "memory_",  desc: "Card matching memory game dengan 4 level kesulitan, timer, dan best score.",tag: "React • Vite • CSS",             url: "https://memory-dk.vercel.app/",                              img: memoryImg   },
 ];
 
 const EXPERIENCE = [
@@ -121,32 +113,20 @@ const EXPERIENCE = [
   { r: "Pramuka",                        c: "Pradana Putra", s: "SMA Negeri 1 Sendang Agung", y: "2021 — 2023", color: "#F59E0B" },
 ];
 
-// ─────────────────────────────────────────────
-// Hook: Audio feedback
-// ─────────────────────────────────────────────
 function useClickSound() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
   useEffect(() => {
     audioRef.current = new Audio(clickSound);
     audioRef.current.volume = 0.45;
   }, []);
-
   const play = useCallback(() => {
     if (!audioRef.current) return;
-    // Reset agar bisa play ulang cepat tanpa nunggu selesai
     audioRef.current.currentTime = 0;
-    audioRef.current.play().catch(() => {
-      // Autoplay policy — abaikan, user belum berinteraksi
-    });
+    audioRef.current.play().catch(() => {});
   }, []);
-
   return play;
 }
 
-// ─────────────────────────────────────────────
-// Main Component
-// ─────────────────────────────────────────────
 function Portfolio() {
   const [dark, setDark]               = useState(false);
   const [activeSkill, setActiveSkill] = useState<string | null>(null);
@@ -157,12 +137,10 @@ function Portfolio() {
 
   const playClick = useClickSound();
 
-  // Sync dark mode ke <html>
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
-  // Back-to-top visibility
   useEffect(() => {
     const onScroll = () => setShowTopBtn(window.scrollY > 400);
     window.addEventListener("scroll", onScroll);
@@ -171,15 +149,13 @@ function Portfolio() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  // ── Handler dark mode with sound ──
   const handleToggleDark = () => {
     playClick();
     setDark((d) => !d);
   };
 
-  // ── Skill pill: hover play sound ──
+  // Skill pill hover — no sound
   const handleSkillEnter = (e: React.MouseEvent<HTMLDivElement>, t: { hoverBg: string; hoverText: string }) => {
-    playClick();
     const el = e.currentTarget as HTMLElement;
     el.style.backgroundColor = t.hoverBg;
     el.style.color            = t.hoverText;
@@ -192,7 +168,6 @@ function Portfolio() {
     el.style.borderColor      = "";
   };
 
-  // ── Pill component (DRY) ──
   const SkillPill = ({ t, extraStyle }: { t: typeof SKILLS_LEFT[number]; extraStyle?: React.CSSProperties }) => (
     <div
       key={t.n}
@@ -209,21 +184,15 @@ function Portfolio() {
     </div>
   );
 
-  // ─────────────────────────────────────────────
-  // Render
-  // ─────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-background text-foreground">
 
-      {/* ── NAV ── */}
+      {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6 md:py-4">
-
           <a href="#" className="-my-3 md:-my-6">
             <img src={logo} alt="Logo" className="h-13 w-auto transition-all duration-300 dark:invert md:h-17" />
           </a>
-
-          {/* Desktop Nav */}
           <nav className="hidden gap-8 md:flex">
             {NAV.map((n) => (
               <a key={n.href} href={n.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
@@ -231,8 +200,6 @@ function Portfolio() {
               </a>
             ))}
           </nav>
-
-          {/* Desktop Actions */}
           <div className="hidden items-center gap-3 md:flex">
             <button
               onClick={handleToggleDark}
@@ -245,8 +212,6 @@ function Portfolio() {
               Hubungi
             </a>
           </div>
-
-          {/* Mobile Actions */}
           <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={handleToggleDark}
@@ -272,8 +237,6 @@ function Portfolio() {
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
         {menuOpen && (
           <div className="border-t border-border bg-background/95 backdrop-blur-md md:hidden">
             <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
@@ -299,7 +262,7 @@ function Portfolio() {
         )}
       </header>
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section
         className="relative overflow-hidden px-6 pb-0 pt-8 transition-all duration-500 md:pb-0 md:pt-12"
         style={{
@@ -320,13 +283,11 @@ function Portfolio() {
               Tugas Portofolio — Interaksi Manusia &amp; Komputer
             </a>
           </div>
-
           <h1 className="relative z-0 text-center font-display text-4xl leading-[1.05] tracking-tight md:text-7xl lg:text-8xl">
             Hi I'm Dika
             <br />
             <span className="italic-display">Mahasiswa Informatika</span>
           </h1>
-
           <div className="relative z-10 mt-[-40px] md:mt-[-50px] lg:mt-[-60px]">
             <div className="relative mx-auto flex justify-center">
               <img
@@ -338,7 +299,6 @@ function Portfolio() {
                 style={{ filter: "drop-shadow(0 30px 40px oklch(0.18 0.01 240 / 0.18))" }}
               />
             </div>
-
             <div className="absolute left-8 top-[40%] z-20 hidden md:block">
               <div className="inline-flex items-center gap-2 rounded-full bg-background py-2 pl-2 pr-4 text-sm font-medium shadow-lg">
                 <span className="relative grid h-6 w-6 place-items-center rounded-full" style={{ background: "var(--lime)" }}>
@@ -347,11 +307,9 @@ function Portfolio() {
                 Tersedia untuk kerja sama
               </div>
             </div>
-
             <div className="absolute right-8 top-[40%] z-20 hidden max-w-[220px] text-sm leading-relaxed text-foreground/80 md:block">
               passionate dalam menciptakan pengalaman digital yang intuitif dengan prinsip IMK.
             </div>
-
             <div className="absolute bottom-12 right-8 z-20 hidden md:block">
               <a
                 href="#contact"
@@ -360,12 +318,9 @@ function Portfolio() {
                 <ArrowUpRight className="h-4 w-4" /> Hubungi Saya
               </a>
             </div>
-
             <div className="absolute bottom-12 left-8 z-20 hidden max-w-[200px] text-xs text-foreground/70 md:block">
               Mahasiswa <strong className="text-foreground">Teknik Informatika</strong> yang fokus pada front-end dan desain UI berlandaskan IMK.
             </div>
-
-            {/* Mobile CTA */}
             <div className="absolute bottom-4 left-0 right-0 z-30 flex justify-center md:hidden">
               <a
                 href="/cv-dika.pdf"
@@ -380,7 +335,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── MARQUEE ── */}
+      {/* MARQUEE */}
       <div className="w-full overflow-hidden border-y border-border bg-background py-3 md:py-4">
         <div className="flex w-max items-center gap-x-12" style={{ animation: "marquee 20s linear infinite" }}>
           {[
@@ -396,7 +351,7 @@ function Portfolio() {
         </div>
       </div>
 
-      {/* ── ABOUT ── */}
+      {/* ABOUT */}
       <section id="about" className="px-6 pb-8 pt-10 md:pb-16 md:pt-24">
         <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-[1fr_1.5fr] md:items-center md:gap-6">
           <h2 className="font-display text-4xl leading-tight md:text-5xl">
@@ -408,7 +363,6 @@ function Portfolio() {
             untuk menciptakan pengalaman digital yang benar-benar bermakna.
           </p>
         </div>
-
         <div className="mx-auto mt-4 grid max-w-5xl grid-cols-2 gap-3 md:mt-5 md:grid-cols-4 md:gap-4">
           {ABOUT_CARDS.map(({ t, color, lightColor }) => {
             const isHovered = hoveredCard === t;
@@ -417,8 +371,8 @@ function Portfolio() {
                 key={t}
                 className="flex cursor-pointer select-none flex-col justify-center overflow-hidden rounded-2xl border transition-all duration-200"
                 style={{
-                  borderColor:     isHovered ? color           : "var(--border)",
-                  backgroundColor: isHovered ? lightColor      : "var(--card)",
+                  borderColor:     isHovered ? color      : "var(--border)",
+                  backgroundColor: isHovered ? lightColor : "var(--card)",
                   boxShadow:       isHovered ? `0 8px 24px ${color}33` : "none",
                 }}
                 onMouseEnter={() => setHoveredCard(t)}
@@ -448,9 +402,8 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── SKILLS ── */}
+      {/* SKILLS */}
       <section id="skills" className="relative bg-background px-6 pb-10 pt-8 md:pb-32 md:pt-20">
-        {/* Mobile */}
         <div className="px-2 py-4 text-center md:hidden">
           <h2 className="font-display text-2xl leading-[1.2] tracking-tight">
             fokus saya pada perpaduan{" "}
@@ -459,8 +412,6 @@ function Portfolio() {
             <span className="text-muted-foreground">menciptakan pengalaman yang bermakna</span>
           </h2>
         </div>
-
-        {/* Desktop */}
         <div className="mx-auto hidden max-w-6xl items-center gap-10 md:grid md:grid-cols-[auto_1fr_auto]">
           <div className="flex flex-col gap-10">
             {SKILLS_LEFT.map((t, i) => (
@@ -481,8 +432,6 @@ function Portfolio() {
             ))}
           </div>
         </div>
-
-        {/* Bottom pills */}
         <div className="mx-auto mt-16 hidden max-w-5xl flex-wrap justify-center gap-3 md:flex">
           {SKILLS_BOTTOM.map((t) => (
             <SkillPill key={t.n} t={t} />
@@ -490,7 +439,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── EDUCATION ── */}
+      {/* EDUCATION */}
       <section className="bg-secondary px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-6 flex items-end justify-between md:mb-12">
@@ -515,7 +464,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── PROJECTS ── */}
+      {/* PROJECTS */}
       <section id="projects" className="px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-center font-display text-4xl md:text-5xl">
@@ -554,7 +503,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── EXPERIENCE ── */}
+      {/* EXPERIENCE */}
       <section id="experience" className="bg-secondary px-6 py-10 md:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mb-6 flex items-end justify-between md:mb-12">
@@ -584,7 +533,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── CONTACT ── */}
+      {/* CONTACT */}
       <section
         id="contact"
         className="relative overflow-hidden px-6 py-14 text-center transition-all duration-500 md:py-28"
@@ -613,7 +562,6 @@ function Portfolio() {
             </svg>
             <span>WhatsApp</span>
           </a>
-
           <div className="mt-8 flex justify-center gap-3 md:mt-10 md:gap-4">
             {SOCIAL_LINKS.map(({ icon: Icon, href, label, hoverBg, hoverColor }) => (
               <a
@@ -658,7 +606,7 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <footer className="border-t border-border bg-background px-6 py-8 md:py-10">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground md:flex-row md:justify-between">
@@ -677,7 +625,7 @@ function Portfolio() {
         </p>
       </footer>
 
-      {/* ── ABOUT MODAL ── */}
+      {/* ABOUT MODAL */}
       {activeAbout && (() => {
         const info = ABOUT_CARDS.find((c) => c.t === activeAbout);
         if (!info) return null;
@@ -716,7 +664,7 @@ function Portfolio() {
         );
       })()}
 
-      {/* ── SKILL MODAL ── */}
+      {/* SKILL MODAL */}
       {activeSkill && (() => {
         const info     = TECH_INFO[activeSkill];
         const bgColor  = info?.color    ?? "#1a1a1a";
@@ -756,7 +704,7 @@ function Portfolio() {
         );
       })()}
 
-      {/* ── BACK TO TOP ── */}
+      {/* BACK TO TOP */}
       <button
         onClick={scrollToTop}
         className={`fixed bottom-6 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-foreground/10 bg-background/60 text-foreground shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-background/90 md:bottom-8 md:right-8 ${
